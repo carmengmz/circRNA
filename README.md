@@ -2,6 +2,9 @@
 A collection of R-scripts to automate the download of RNA-Seq samples, quality control, preprocessing, detection of circRNAs and classification using machine learning from the detected circRNAs.
 
 ## User manual
+
+### Downloading the SRAs
+
 In first place we must select a set of sequenced RNA-seq samples suitable for the detection of circRNAs. In [Selection of the RNA-Seq library](https://github.com/carmengmz/circRNA/wiki/Selection-of-the-RNA-seq-library) you can find some tips on how to make the selection.
 
 If the detected circRNAs will be used for classification, the samples must belong to different groups. For example, sequenced samples from normal patients vs sequenced samples from patients with some disease or condition. In our example we will select sequenced samples of blood exosomes from normal patiens and sequenced samples of blood exosomes from patiens with coronary heart disease.
@@ -43,6 +46,9 @@ SRR5712482.sra
 SRR5712483.sra
 SRR5712484.sra 
 ```
+
+### Converting to FASTQ
+
 Once the SRAs are downloaded, the next step is to convert the files to the FASTQ format, separating the readings into two different files in the case of paired-end reads. To do this we are going to use the <b>fastq-dump</b> tool included in the [NCBI's SRA Toolkit](https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software) available for several operating systems. The automation of this process has been implemented in the [Trans.R](https://github.com/carmengmz/circRNA/blob/master/src/Trans.R) script. The command to convert the files to the FASTQ format with <b>fastq-dump</b> is:
 ```
 fastq-dump --split-3 <file.sra>
@@ -58,4 +64,13 @@ As a result, as the end of the script, in the working directory we will have the
 
 ```
 ```
+### Quality control and cleaning of raw data
+
+
+### circRNA detection
+
+### Generating count table
+
+### Machine Learning Classification
+
 
