@@ -90,22 +90,44 @@ The integral evaluation of the quality and the preprocessing of the raw data are
 - [Fastp](https://github.com/OpenGene/fastp) for cleaning raw data
 - [MultiQC](http://multiqc.info) for summarize quality reports  
 
-In [Cleaning and preprocessing RNA-Seq](https://github.com/carmengmz/circRNA/wiki/Cleaning-and-preprocessing-RNA-Seq) are explained the reasons for the choice of this tools. 
+In [Cleaning and preprocessing RNA-Seq](https://github.com/carmengmz/circRNA/wiki/Cleaning-and-preprocessing-RNA-Seq) are explained the reasons for the choice of these tools. 
 
 All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to be executed directly in the working directory for example, adding the path to the executables to the <b>.bashrc</b> file in an Unix like SO. <b>Fastp</b> is avalaible for Linux and macOs but not for Windows. The script [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) automate the task of quality control and cleaning:
 
-1. In first place, it will make quality control of raw FASTQ with the <b>FASTQC</b> tool. Then it will summarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The results will be in directories:  <b>&lt;group&gt;_quality_raw</b>
+1. In first place, it will make quality control of raw FASTQ with the <b>FASTQC</b> tool. Then it will summarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders:  <b>&lt;group&gt;_quality_raw</b> (one folder by each group)
   
-2. Then it will use <b>Fastp</b> tool to clean raw data. As a result we will have the same FASTQ files but with prefix <b>_clean.FASTQ</b> (for single-end reads) or <b>_clean_1.FASTQ</b> and <b>_clean_2.FASTQ</b> (for paired-end reads). <b>Fastp</b> also generates a quality control report for each file (or pair of files if they are paired-end reads). The result is saved in the <b>fastp</b> folder.
+2. Then it will use <b>Fastp</b> tool to clean raw data. As a result we will have the same FASTQ files but with prefix <b>_clean.FASTQ</b> (for single-end reads) or <b>_clean_1.FASTQ</b> and <b>_clean_2.FASTQ</b> (for paired-end reads). <b>Fastp</b> also generates a quality control report for each file (or pair of files if they are paired-end reads). These reports will be stored in the <b>fastp</b> folder.
 
-3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The results will be in directory: <b>&lt;group&gt;_quality_clean</b>
+3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_quality_clean</b (one folder by each group)
 
 The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will run the [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) script with:
 
 ```
 > Rscript Clean.R
 ```
+As a result, at the end of the script, in the working directory we will have these files: the clean FASTQ files and the folders with the reports. In our example this is the content of the working directory (raw FASTQ files can now be deleted to preserve disk space):
 
+```
+phenodata.txt
+SRR5679909_clean_1.fastq
+SRR5679909_clean_2.fastq
+SRR5679908_clean_1.fastq
+SRR5679908_clean_2.fastq
+SRR5679907_clean_1.fastq
+SRR5679907_clean_2.fastq
+SRR5712482_clean_1.fastq
+SRR5712482_clean_2.fastq
+SRR5712483_clean_1.fastq
+SRR5712483_clean_2.fastq
+SRR5712484_clean_1.fastq
+SRR5712484_clean_2.fastq
+fastp
+coronary_quality_raw
+coronary_quality_clean
+normal_quality_raw
+normal_quality_clean
+```
+The generated reports are available in the [example](https://github.com/carmengmz/circRNA/tree/master/example) folder.
 
 ### circRNA detection
 
