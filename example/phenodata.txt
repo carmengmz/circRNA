@@ -1,0 +1,13 @@
+File	Group
+SRR5687235	colorectal
+SRR5687236	colorectal
+SRR5687237	colorectal
+SRR5712516	hepatocellular
+SRR5712517	hepatocellular
+SRR5712518	hepatocellular
+SRR5712482	normal
+SRR5712483	normal
+SRR5712484	normal
+SRR5714908	pancreatic
+SRR5714909	pancreatic
+SRR5714910	pancreatic
