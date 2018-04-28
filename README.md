@@ -85,6 +85,16 @@ SRR5712484.sra
 ```
 ### Quality control and cleaning of raw data
 
+The integral evaluation of the quality and the preprocessing of the raw data are the first and most critical steps for all subsequent analyzes and the correct interpretation of the results. We will use:
+- [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) for quality control before and after cleaning the raw data.
+- [Fastp](https://github.com/OpenGene/fastp) for cleaning raw data
+- [MultiQC](http://multiqc.info) for summarize quality reports
+In cleaning and preprocessing RNA-Seq are explained the reasons for the choice of this tools. 
+
+All the tools (FASTQC, Fastp and MultiQC) must be able to be executed directly in the working directory for example, adding the path to the executables to the .bashrc file in an Unix like SO or the global PATH variable in a Windows SO.
+
+
+
 
 ### circRNA detection
 
