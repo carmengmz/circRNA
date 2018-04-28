@@ -1,5 +1,7 @@
-# circRNA
-Classification of RNA-Seq samples using circRNA expression
+# Classification of RNA-Seq samples using circRNA expression
+A collection of R-scripts to automate the download of RNA-Seq samples, quality control, preprocessing, detection of circRNAs and classification using machine learning from the detected circRNAs.
+
+## Selection of the RNA-seq library
 
 First of all we must have a set of RNA-Seq sequenced samples suitable for the detection of circRNA.  To choose a suitable sequenced sample, we must bear in mind that there are many variations in RNA-seq library preparations, which significantly affect the abundance of circRNAs in the resulting RNA-seq datasets. The biochemical steps in the preparation of the library that have the most important influence on the detection of circRNA are, first, the purification of RNA; second, size selections at the RNA or cDNA level; and third, RNA fragmentation, priming method and / or adapter ligation.
 
