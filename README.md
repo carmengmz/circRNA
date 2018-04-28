@@ -66,22 +66,16 @@ As a result, at the end of the script, in the working directory we will have the
 phenodata.txt
 SRR5679909_1.fastq
 SRR5679909_2.fastq
-SRR5679909.sra
 SRR5679908_1.fastq
 SRR5679908_2.fastq
-SRR5679908.sra
 SRR5679907_1.fastq
 SRR5679907_2.fastq
-SRR5679907.sra
 SRR5712482_1.fastq
 SRR5712482_2.fastq
-SRR5712482.sra
 SRR5712483_1.fastq
 SRR5712483_2.fastq
-SRR5712483.sra
 SRR5712484_1.fastq
 SRR5712484_2.fastq
-SRR5712484.sra 
 ```
 ### Quality control and cleaning of raw data
 
@@ -98,7 +92,7 @@ All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to b
   
 2. Then it will use <b>Fastp</b> tool to clean raw data. As a result we will have the same FASTQ files but with prefix <b>_clean.FASTQ</b> (for single-end reads) or <b>_clean_1.FASTQ</b> and <b>_clean_2.FASTQ</b> (for paired-end reads). <b>Fastp</b> also generates a quality control report for each file (or pair of files if they are paired-end reads). These reports will be stored in the <b>fastp</b> folder.
 
-3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_quality_clean</b (one folder by each group)
+3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_quality_clean</b> (one folder by each group)
 
 The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will run the [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) script with:
 
