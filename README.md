@@ -5,7 +5,7 @@ A collection of R-scripts to automate the download of RNA-Seq samples, quality c
 
 ### Downloading the SRAs
 
-In first place we must select a set of sequenced RNA-seq samples suitable for the detection of circRNAs. In [Selection of the RNA-Seq library](https://github.com/carmengmz/circRNA/wiki/Selection-of-RNA-Seq-suitable-for-circRNA-detection) you can find some tips on how to make the selection.
+In first place we must select a set of sequenced RNA-seq samples suitable for the detection of circRNAs. In [Selection of the RNA-Seq library](https://github.com/carmengmz/circRNA/wiki/Selection-of-RNA-Seq-suitable-for-circRNA-detection) can be find some tips on how to make the selection.
 
 If the detected circRNAs will be used for classification, the samples must belong to different groups. For example, sequenced samples from normal patients vs sequenced samples from patients with some disease or condition. In our example we will select sequenced samples of blood exosomes from normal patiens and sequenced samples of blood exosomes from patiens with coronary heart disease.
 
@@ -91,7 +91,10 @@ The integral evaluation of the quality and the preprocessing of the raw data are
 - [MultiQC](http://multiqc.info) for summarize quality reports
 In cleaning and preprocessing RNA-Seq are explained the reasons for the choice of this tools. 
 
-All the tools (FASTQC, Fastp and MultiQC) must be able to be executed directly in the working directory for example, adding the path to the executables to the .bashrc file in an Unix like SO or the global PATH variable in a Windows SO.
+All the tools (FASTQC, Fastp and MultiQC) must be able to be executed directly in the working directory for example, adding the path to the executables to the .bashrc file in an Unix like SO. Fastp is avalaible for Linux and macOs but not for Windows. The scritp Clean.R automate the task of quality control and cleaning. :
+1. In first place, it will make quality control of raw FASTQ with the FASTQC tool. Then it will summarize quality reports with MultiQC by each group defined in phenodata.txt. The results will be in directory: <group>_quality_raw
+2. Then it will use Fastp tool to clean raw data. As a result we will have the same FASQ files but with prefix _clean.FASTQ (for single-end reads) or _clean_1.FASTQ and _clean_2.FASTQ (for paired-end reads). Fastp also generates a quality control report for each file (or pair of files if they are paired readings). The result is saved in the fastp folder.
+3. And to finish it will make quality control of clean FASTQ with the FASTQC tool. Then it will sumarize quality reports with MultiQC by each group defined in phenodata.txt. The results will be in directory: <group>_quality_clean
 
 
 
