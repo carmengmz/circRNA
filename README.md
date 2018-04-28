@@ -88,15 +88,23 @@ SRR5712484.sra
 The integral evaluation of the quality and the preprocessing of the raw data are the first and most critical steps for all subsequent analyzes and the correct interpretation of the results. We will use:
 - [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) for quality control before and after cleaning the raw data.
 - [Fastp](https://github.com/OpenGene/fastp) for cleaning raw data
-- [MultiQC](http://multiqc.info) for summarize quality reports
-In cleaning and preprocessing RNA-Seq are explained the reasons for the choice of this tools. 
+- [MultiQC](http://multiqc.info) for summarize quality reports  
 
-All the tools (FASTQC, Fastp and MultiQC) must be able to be executed directly in the working directory for example, adding the path to the executables to the .bashrc file in an Unix like SO. Fastp is avalaible for Linux and macOs but not for Windows. The scritp Clean.R automate the task of quality control and cleaning. :
-1. In first place, it will make quality control of raw FASTQ with the FASTQC tool. Then it will summarize quality reports with MultiQC by each group defined in phenodata.txt. The results will be in directory: <group>_quality_raw
-2. Then it will use Fastp tool to clean raw data. As a result we will have the same FASQ files but with prefix _clean.FASTQ (for single-end reads) or _clean_1.FASTQ and _clean_2.FASTQ (for paired-end reads). Fastp also generates a quality control report for each file (or pair of files if they are paired readings). The result is saved in the fastp folder.
-3. And to finish it will make quality control of clean FASTQ with the FASTQC tool. Then it will sumarize quality reports with MultiQC by each group defined in phenodata.txt. The results will be in directory: <group>_quality_clean
+In [Cleaning and preprocessing RNA-Seq](https://github.com/carmengmz/circRNA/wiki/Cleaning-and-preprocessing-RNA-Seq) are explained the reasons for the choice of this tools. 
 
+All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to be executed directly in the working directory for example, adding the path to the executables to the <b>.bashrc</b> file in an Unix like SO. <b>Fastp</b> is avalaible for Linux and macOs but not for Windows. The script [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) automate the task of quality control and cleaning:
 
+1. In first place, it will make quality control of raw FASTQ with the <b>FASTQC</b> tool. Then it will summarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The results will be in directories:  <b>&lt;group&gt;_quality_raw</b>
+  
+2. Then it will use <b>Fastp</b> tool to clean raw data. As a result we will have the same FASTQ files but with prefix <b>_clean.FASTQ</b> (for single-end reads) or <b>_clean_1.FASTQ</b> and <b>_clean_2.FASTQ</b> (for paired-end reads). <b>Fastp</b> also generates a quality control report for each file (or pair of files if they are paired-end reads). The result is saved in the <b>fastp</b> folder.
+
+3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The results will be in directory: <b>&lt;group&gt;_quality_clean</b>
+
+The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will run the [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) script with:
+
+```
+> Rscript Clean.R
+```
 
 
 ### circRNA detection
