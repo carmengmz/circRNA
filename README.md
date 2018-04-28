@@ -60,9 +60,28 @@ The <b>fastq-dump</b> tool must be able to be executed directly in the working d
 ```
 > Rscript Trans.R
 ```
-As a result, as the end of the script, in the working directory we will have the FASTQ files. SRA files can now be deleted to preserve disk space. In our example we have paired-end reads and this is the content of the working directory:
+As a result, at the end of the script, in the working directory we will have the FASTQ files. SRA files can now be deleted to preserve disk space. In our example we have paired-end reads and this is the content of the working directory:
 
 ```
+phenodata.txt
+SRR5679909_1.fastq
+SRR5679909_2.fastq
+SRR5679909.sra
+SRR5679908_1.fastq
+SRR5679908_2.fastq
+SRR5679908.sra
+SRR5679907_1.fastq
+SRR5679907_2.fastq
+SRR5679907.sra
+SRR5712482_1.fastq
+SRR5712482_2.fastq
+SRR5712482.sra
+SRR5712483_1.fastq
+SRR5712483_2.fastq
+SRR5712483.sra
+SRR5712484_1.fastq
+SRR5712484_2.fastq
+SRR5712484.sra 
 ```
 ### Quality control and cleaning of raw data
 
