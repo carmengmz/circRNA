@@ -1,12 +1,4 @@
 # Classification of RNA-Seq samples using circRNA expression
 A collection of R-scripts to automate the download of RNA-Seq samples, quality control, preprocessing, detection of circRNAs and classification using machine learning from the detected circRNAs.
 
-## Selection of the RNA-seq library
-
-First of all we must have a set of RNA-Seq sequenced samples suitable for the detection of circRNA.  To choose a suitable sequenced sample, we must bear in mind that there are many variations in RNA-seq library preparations, which significantly affect the abundance of circRNAs in the resulting RNA-seq datasets. The biochemical steps in the preparation of the library that have the most important influence on the detection of circRNA are, first, the purification of RNA; second, size selections at the RNA or cDNA level; and third, RNA fragmentation, priming method and / or adapter ligation.
-
-Currently, the RNA-seq libraries of eukaryotic cellular RNA are typically poly(A)-selected or depleted from rRNA prior to library preparation. The only purification that is predicted to significantly reduce a sample of circRNAs is an enrichment stage of poly-(A), since the circRNAs lack a poly-(A) tail. In contrast, the circRNAs are retained in rRNA-depleted libraries and are enriched in libraries treated with RNase R to digest the linear RNA. The selection by size usually exclude molecules that are below 200 nt, this would not be a big problem in the detection of circRNA since it would only exclude those of very small size in case of existing.
-
-Random priming, unlike priming oligo-(dT), does not require a poly-(A) tail to be present, and will therefore result in an RNA-seq library that is not biased against circRNAs. Finally, the small RNA libraries will be biased against the circRNAs only if the RNA is not fragmented prior to ligation or priming of the adapter, since the circRNAs do not have free ends unless they are excised in vivo or in vitro [25]
-
-In this study [26] a comparative analysis is performed to systematically evaluate the bias of the circRNA predictions from the RNA-Seq data. The analysis showed that it was feasible to take full advantage of the large amount of RNA-Seq data in the public databases for predictions of circRNAs. And, although this prediction suffers from false positives, it can be carefully controlled by using RNA-Seq data with good quality and preferably selecting the circRNAs with high relationship between binding readings and reading count.
+https://github.com/carmengmz/circRNA/wiki/Selection-of-the-RNA-seq-library
