@@ -33,9 +33,8 @@ Now we can run the script [Download.R](https://github.com/carmengmz/circRNA/blob
 ```
 > Rscript Download.R
 ```
-As a result, at the end of the script, in the working directory we will have the downloaded sra files and a log file:
+As a result, at the end of the script, in the working directory we will have the downloaded sra files:
 ```
-download.log
 phenodata.txt
 SRR5679909.sra
 SRR5679908.sra
@@ -55,3 +54,8 @@ The <b>fastq-dump</b> tool must be able to be executed directly in the working d
 ```
 > Rscript Trans.R
 ```
+As a result, as the end of the script, in the working directory we will have the FASTQ files. SRA files can now be deleted to preserve disk space. In our example we have paired-end reads and this is the content of the working directory:
+
+```
+```
+
