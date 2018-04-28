@@ -6,7 +6,7 @@ In first place we must select a set of sequenced RNA-seq samples suitable for th
 
 If the detected circRNAs will be used for classification, the samples must belong to different groups. For example, sequenced samples from normal patients vs sequenced samples from patients with some disease or condition. In our example we will select sequenced samples of blood exosomes from normal patiens and sequenced samples of blood exosomes from patiens with coronary heart disease.
 
-We performed the search in the [Gene Expression Omnibus repository (GEO)](https://www.ncbi.nlm.nih.gov/gds) of the NCBI (National Center for Biotechnology Information) using the following criteria:
+We have performed the search in the [Gene Expression Omnibus repository (GEO)](https://www.ncbi.nlm.nih.gov/gds) of the NCBI (National Center for Biotechnology Information) using the following criteria:
 - Organism: Homo sapiens
 - Study type: Expression profiling by throughput sequencing
 - Query: ""blood exosomes"
@@ -44,4 +44,10 @@ SRR5712482.sra
 SRR5712483.sra
 SRR5712484.sra 
 ```
-Now we can move to the next step.
+Once the SRAs are downloaded, the next step is to convert the files to the FASTQ format, separating the readings into two different files if what we have are paired-end reads. To do this we are going to use the <b>fastq-dump</b> tool included in the [NCBI's SRA Toolkit](https://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?view=software) available for several operating systems. The automation of this process has been implemented in the Trans.R script
+
+The fastq-dump tool must be able to be executed directly in the working directory, for example, adding the path to the executable to the .bashrc file on a Unix system or to the global PATH variable on a Windows system. The *.sra files and the phenodata.txt file must be too in the working directory. In a Unix like S.O. command line we will type:
+
+```
+> Rscript Trans.R
+```
