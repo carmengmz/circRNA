@@ -168,9 +168,13 @@ To automate the detection of circRNAs in all samples, the [CircRNA.R](https://gi
 Also, the following files must be in working directory:
 - the FASTA reference sequence named <b>hg38.fa</b> and the GTF data with the annotations <b>hg38.gtf</b>. This names can be changed editing the <b>ref_fasta</b> and <b>ref_gtf</b> variables in [CircRNA.R](https://github.com/carmengmz/circRNA/blob/master/src/CircRNA.R) script.
 - the <b>phenodata.txt</b> file.
-- the clean fastq seqences. Expected names: <b>&lt;File&gt;_clean_1.fastq</b> and <b>&lt;File&gt;_clean_2.fastq</b>, being <b>File</b> the name of each sample specified in <b>phenodata.txt</b>
+- the clean FASTQ sequences. Expected names: <b>&lt;File&gt;_clean_1.fastq</b> and <b>&lt;File&gt;_clean_2.fastq</b>, being <b>File</b> the name of each sample specified in <b>phenodata.txt</b>
 
-As a result we will get a text file for each sample named <b>&lt;File&gt;-outfile</b> with the detected circRNAs. The outfile(s) of our example can be found in the [example]() forder.
+As a result we will get a text file for each sample named <b>&lt;File&gt;-outfile</b> with the detected circRNAs. The outfile(s) of our example can be found in the [example]() forder. Also we will get the sam files with the alignment of each sample to the reference genome, the log files of the aligment and the log files of CIRI2.
+
+This is the content now of our working directory:
+```
+```
 
 ### Generating table with counts
 
