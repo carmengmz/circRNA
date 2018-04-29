@@ -1,6 +1,8 @@
 # Classification of RNA-Seq samples using circRNA expression
 A collection of R-scripts to automate the download of RNA-Seq samples, quality control, preprocessing, detection of circRNAs and classification using machine learning from the detected circRNAs.
 
+![pipeline](https://github.com/carmengmz/circRNA/blob/master/circRNA-pipeline.png)
+
 ## User manual
 
 ### Downloading the SRAs
@@ -176,7 +178,9 @@ This is the content now of our working directory:
 ```
 ```
 
-### Generating table with counts
+### Annotating circRNA and Generating table with counts
+
+### Filtering and normalization
 
 ### Machine Learning Classification
 
