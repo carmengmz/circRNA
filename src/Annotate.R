@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-MODIFY THIS VAR WITH DESIRED RANGE OF ANNOTATION
+# MODIFY THIS VAR WITH DESIRED RANGE OF ANNOTATION
 ####################################################
 range = 10
 ####################################################
@@ -39,7 +39,6 @@ for (f in Files) {
                                 as.character(strand), as.integer(0), stringsAsFactors = FALSE)
       names(circRNA_ann) <- c("circ", "chrom", "start", "end", "strand",f)
       rownames(circRNA_ann) <- circRNA_ann$circ
-
     }
 
     #In the first row from the second sample to the end: initialize column for this sample
@@ -74,7 +73,6 @@ for (f in Files) {
     else if (nrow(match==1)) {
       circId <- match$circ[1]
       circRNA_ann[circId,f] <- circRNA_ann[circId,f] + as.integer(reads)
-
     }
 
     #More than one match: this should not happen. 
