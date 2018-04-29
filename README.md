@@ -86,7 +86,7 @@ The integral evaluation of the quality and the preprocessing of the raw data are
 
 In [Cleaning and preprocessing RNA-Seq](https://github.com/carmengmz/circRNA/wiki/Cleaning-and-preprocessing-RNA-Seq) are explained the reasons for the choice of these tools. 
 
-All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to be executed directly in the working directory for example, adding the path to the executables to the <b>.bashrc</b> file in an Unix like SO. <b>Fastp</b> is avalaible for Linux and macOs but not for Windows. The script [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) automate the task of quality control and cleaning:
+All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to be executed directly in the working directory for example, adding the path to the executables to the <b>.bashrc</b> file in an Unix like SO. <b>Fastp</b> is avalaible for Linux and macOs but not for Windows. The script [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Clean.R) automate the task of quality control and cleaning:
 
 1. In first place, it will make quality control of raw FASTQ with the <b>FASTQC</b> tool. Then it will summarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders:  <b>&lt;group&gt;_quality_raw</b> (one folder by each group)
   
@@ -94,7 +94,7 @@ All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to b
 
 3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_quality_clean</b> (one folder by each group)
 
-The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will run the [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) script with:
+The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will run the [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Clean.R) script with:
 
 ```
 > Rscript Clean.R
@@ -124,6 +124,49 @@ normal_quality_clean
 The generated reports are available in the [example](https://github.com/carmengmz/circRNA/tree/master/example) folder.
 
 ### Detection of circRNA
+In recent years, multiple tools and pipelines have been developed for the identification of circRNAs. In parallel we can find published studies comparing the different detection tools. In [Circular RNA tools](http://github.com/carmengmz/circRNA/wiki/) you can find references to studies that compare the different circRNA detection tools.
+
+In this project we will use the CIRI2 tool to identify the circRNAs present in our samples. And, in order to use CIRI2 to identify the circRNAs present in our readings, it is first necessary to align the readings to a reference genome using the BWA aligner. BWA is a tool for mapping divergent sequences against a large reference genome, such as the human genome. 
+
+In order to perform this task you will need to download the reference genome in FASTA format and its annotations in GTF format.We will use the latest available version of the reference genome GRCh38. If you need to use other reference genome, you can edit the <b>reference</b> variable in Circrna.R script. 
+
+For example, you can download and uncompress reference genome from Ensembl using the following UNIX commands. For homo sapiens the file labeled toplevel combines all chromosomes. 
+```
+wget ftp://ftp.ensembl.org/pub/release-77/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz 
+gunzip Homo_sapiens.GRCh38.dna.toplevel.fa.gz 
+mv Homo_sapiens.GRCh38.dna.toplevel.fa hg38.fa
+```
+And Homo sapiens gene model annotation can be downloaded as follow:
+```
+wget ftp://ftp.ensembl.org/pub/release-77/gtf/homo_sapiens/Homo_sapiens.GRCh38.77.gtf.gz 
+gunzip Homo_sapiens.GRCh38.77.gtf.gz 
+mv Homo_sapiens.GRCh38.77.gtf hg38.gtf
+```
+It is important to download both files (the FASTA reference sequence and the GTF data with the annotations) from the same provider. 
+ 
+The the first step to using BWA for aligning our sequences is to build a reference genome index in fasta format. To do this we will use the following command:
+```
+bwa index -a bwtsw hg38.fa
+```
+Now, we align our readings to the reference genome using the following command.
+```
+bwa mem -t 10 –T 19 hg38.fa read_1.fastq read_2.fastq 1> aln-pe.sam 2> aln-pe.log
+```
+Finally, we passed the sam file generated in the previous command to the CIRI2 tool:
+```
+perl CIRI2.pl -T 10 -I aln-pe.sam -O  outfile -F hg38.fa -A hg38.gtf > ciri.log
+```
+Here we are using 10 threads (<b>-t 10</b> in BWA command and <b>-T 10</b> in CIRI2 command), you can change that editing the Circrna.R script, changing the <b>num_thread</b> varible.
+
+As a result we will get a text file <b>outfile<b/> with the circRNAs identified in our reads. From this file we will use the following fields:
+- circRNA_ID - an identifier for the circRNA with the format: chrom:start|end (for example, chr1:1223244|1223968)
+- chr - chromosome
+- circRNA_start - initial coordinate
+- circRNA_end - final coordinate
+- #junction_reads - number of readings
+- strand - strand (+/-)
+  
+  The example outfile(s) can be found in the [example]() forder.
 
 ### Generating table with counts
 
