@@ -20,7 +20,7 @@ From the search results we have selected two projects containing sequenced sampl
 
 From every result (follow the links) we retrieve the id of the BioProyect: PRJNA390278 and 	PRJNA390988.
 
-Once we have the BioProyect id, we will retrieve the ids of the SRA Runs in: https://www.ncbi.nlm.nih.gov/Traces/study/ (under the column Run) and we will build a text file separated by tabs called <b>phenodata.txt</b> with two columns: Name and Group. In our [example](https://github.com/carmengmz/circRNA/tree/master/example) we will work with three samples of each group:
+Once we have the BioProyect id, we will retrieve the ids of the SRA Runs in: https://www.ncbi.nlm.nih.gov/Traces/study/ (under the column Run) and we will build a text file separated by tabs called <b>phenodata.txt</b> with two columns: <b>File</b> and <b>Group</b>. In our [example](https://github.com/carmengmz/circRNA/tree/master/example) we will work with three samples of each group:
 
 ```
 File  Group
@@ -123,9 +123,9 @@ normal_quality_clean
 ```
 The generated reports are available in the [example](https://github.com/carmengmz/circRNA/tree/master/example) folder.
 
-### circRNA detection
+### Detection of circRNA
 
-### Generating count table
+### Generating table with counts
 
 ### Machine Learning Classification
 
