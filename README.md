@@ -89,11 +89,11 @@ In [Cleaning and preprocessing RNA-Seq](https://github.com/carmengmz/circRNA/wik
 
 All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to be executed directly in the working directory for example, adding the path to the executables to the <b>.bashrc</b> file in an Unix like SO. <b>Fastp</b> is avalaible for Linux and macOs but not for Windows. The script [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Clean.R) automate the task of quality control and cleaning:
 
-1. In first place, it will make quality control of raw FASTQ with the <b>FASTQC</b> tool. Then it will summarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders:  <b>&lt;group&gt;_quality_raw</b> (one folder by each group)
+1. In first place, it will make quality control of raw FASTQ with the <b>FASTQC</b> tool. Then it will summarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders:  <b>&lt;group&gt;_qc_raw</b> (one folder by each group). The MultiQC report is a "*.html" file with MQC_ prefix inside these folders.
   
 2. Then it will use <b>Fastp</b> tool to clean raw data. As a result we will have the same FASTQ files but with suffixes <b>_clean.FASTQ</b> (for single-end reads) or <b>_clean_1.FASTQ</b> and <b>_clean_2.FASTQ</b> (for paired-end reads). <b>Fastp</b> also generates a quality control report for each file (or pair of files if they are paired-end reads). These reports will be stored in the <b>fastp</b> folder.
 
-3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_quality_clean</b> (one folder by each group)
+3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_qcy_clean</b> (one folder by each group). The MultiQC report is a "*.html" file with MQC_ prefix inside these folders.
 
 The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will run the [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Clean.R) script with:
 
@@ -103,25 +103,18 @@ The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the wo
 As a result, at the end of the script, in the working directory we will have these files: the clean FASTQ files and the folders with the reports. In our example this is the content of the working directory (raw FASTQ files can now be deleted to preserve disk space):
 
 ```
-phenodata.txt
-SRR5679909_clean_1.fastq
-SRR5679909_clean_2.fastq
-SRR5679908_clean_1.fastq
-SRR5679908_clean_2.fastq
-SRR5679907_clean_1.fastq
-SRR5679907_clean_2.fastq
-SRR5712482_clean_1.fastq
-SRR5712482_clean_2.fastq
-SRR5712483_clean_1.fastq
-SRR5712483_clean_2.fastq
-SRR5712484_clean_1.fastq
-SRR5712484_clean_2.fastq
-fastp
-coronary_quality_raw
-coronary_quality_clean
-normal_quality_raw
-normal_quality_clean
+fastp                       SRR5679906_clean_1.fastq    SRR5712483_clean_1.fastq
+coronary_qc_raw             SRR5679906_clean_2.fastq    SRR5712483_clean_2.fastq
+coronary_qc_clean           SRR5679907_clean_1.fastq    SRR5712484_clean_1.fastq
+normal_qc_raw               SRR5679907_clean_2.fastq    SRR5712484_clean_2.fastq
+normal_qc_clean             SRR5679908_clean_1.fastq    SRR5712485_clean_1.fastq
+phenodata.txt               SRR5679908_clean_2.fastq    SRR5712485_clean_2.fastq
+SRR5679904_clean_1.fastq    SRR5679909_clean_1.fastq    SRR5712486_clean_1.fastq
+SRR5679904_clean_2.fastq    SRR5679909_clean_2.fastq    SRR5712486_clean_2.fastq
+SRR5679905_clean_1.fastq    SRR5712482_clean_1.fastq    SRR5712487_clean_1.fastq
+SRR5679905_clean_2.fastq    SRR5712482_clean_2.fastq    SRR5712487_clean_2.fastq
 ```
+
 The generated reports are available in the [example](https://github.com/carmengmz/circRNA/tree/master/example) folder.
 
 ### Detection of circRNA
