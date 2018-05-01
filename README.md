@@ -178,9 +178,8 @@ Also, the following files must be in working directory:
 In a Unix like S.O. command line we will run the [Findcrna.R] (https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script whith:
 
 ```
-> Rscript Clean.R [option]
+> Rscript Clean.R
 ```
-being option: -s for single-end reads, -p for paired end reads
 
 As a result we will get a text file for each sample named <b>&lt;File&gt;-outfile</b> with the detected circRNAs. The outfiles of our example can be found in the [example](https://github.com/carmengmz/circRNA/tree/master/example) forder. Also we will get the sam files with the alignment of each sample to the reference genome, the log files of the aligment and the log files of CIRI2.
 
