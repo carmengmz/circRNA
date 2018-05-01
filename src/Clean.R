@@ -2,34 +2,55 @@
 
 #Function to automate quality control per group with FASTQC/MULTIQC
 qualityControl <- function(phenodata,type) {
-  
-  for (g in phenodata$Group) {
-    
-    #Output directory, one per group
-    dir = paste(g,"_quality_",type,sep="")
+
+  # For each group
+  for (g in levels(factor(phenodata$Group))) {
+
+    #Output directory for FASTQ reports, one per group
+    dir = paste(g,"_qc_",type,sep="")
     cmd = paste("mkdir",dir)
     cat(cmd,"\n")
     system(cmd)
-    
+
     #For every file in group g
     for (f in phenodata$File[which(phenodata$Group %in% g)]) {
-      
+
       prefix = ""
-            
+
+      #For every read
       if (type == "clean")
         prefix = "_clean"
-      
-      #For every read
-      for (i in 1:2) {
-        file <- paste(f,prefix,"_",i,".fastq",sep="")
+
+      #Single-end reads
+      file <- paste(f,prefix,".fastq",sep="")
+      if (file.exists(file)) {
         cmd = paste("fastqc -o", dir, file)
         cat(cmd,"\n")
-        system(cmd)  
+        system(cmd)
+      }
+      #Else, paired-end reads
+      else {
+        for (i in 1:2) {
+          file <- paste(f,prefix,"_",i,".fastq",sep="")
+          cmd = paste("fastqc -o", dir, file)
+          cat(cmd,"\n")
+          system(cmd)
+        }
       }
     }
-    
+
     #Grouping files with MultiQC
-    cmd = paste("multiqc -n ",g,"_quality_mqc_",type," ",dir,sep="")
+    mqcdir = paste("MQC_",dir,sep="")
+
+    cmd = paste("multiqc -n ",mqcdir," ",dir,sep="")
+    cat(cmd,"\n")
+    system(cmd)
+
+    cmd = paste("mv ",mqcdir,"_data"," ",dir,sep="")
+    cat(cmd,"\n")
+    system(cmd)
+
+    cmd = paste("mv ",mqcdir,".html"," " ,dir,sep="")
     cat(cmd,"\n")
     system(cmd)
   }
@@ -49,13 +70,26 @@ qualityControl(phenodata,"raw")
 
 # Clean with fastp
 for(f in phenodata$File) {
-  
-  cmd = paste("fastp -c -i ",f,"_1.fastq"," -I ",f,"_2.fastq",
-              " -o ", f,"_clean_1.fastq"," -O ",f,"_clean_2.fastq",
-              " -j ", phenodata$File[i], "_clean.fastp.json ",
-              " -h ", phenodata$File[i], "_clean.fastp.html ",
+
+  file <- paste(f,".fastq",sep="")
+
+  #For single-end reads
+  if (file.exists(file)) {
+    cmd = paste("fastp -c -i ",f,".fastq",
+                " -o ", f, "_clean.fastq",
+                " -j ", f, "_clean.fastp.json ",
+                " -h ", f, "_clean.fastp.html ",
+                sep="")
+  }
+  #Else: paired-end reads
+  {
+    cmd = paste("fastp -c -i ",f,"_1.fastq"," -I ",f,"_2.fastq",
+              " -o ", f, "_clean_1.fastq"," -O ",f,"_clean_2.fastq",
+              " -j ", f, "_clean.fastp.json ",
+              " -h ", f, "_clean.fastp.html ",
               sep="")
-  
+  }
+
   cat(cmd,"\n")
   system(cmd)
 }
