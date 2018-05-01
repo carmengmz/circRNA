@@ -1,0 +1,13 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	SRR5679904_1	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679904_1_fastqc.zip
+FastQC	all_sections	SRR5679904_2	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679904_2_fastqc.zip
+FastQC	all_sections	SRR5679905_1	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679905_1_fastqc.zip
+FastQC	all_sections	SRR5679905_2	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679905_2_fastqc.zip
+FastQC	all_sections	SRR5679906_1	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679906_1_fastqc.zip
+FastQC	all_sections	SRR5679906_2	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679906_2_fastqc.zip
+FastQC	all_sections	SRR5679907_1	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679907_1_fastqc.zip
+FastQC	all_sections	SRR5679907_2	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679907_2_fastqc.zip
+FastQC	all_sections	SRR5679908_1	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679908_1_fastqc.zip
+FastQC	all_sections	SRR5679908_2	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679908_2_fastqc.zip
+FastQC	all_sections	SRR5679909_1	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679909_1_fastqc.zip
+FastQC	all_sections	SRR5679909_2	/home/tfm-eimt/cgomez/work/test/coronary_qc_raw/SRR5679909_2_fastqc.zip
