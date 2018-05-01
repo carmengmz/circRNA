@@ -1,0 +1,13 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	SRR5712482_2	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712482_2_fastqc.zip
+FastQC	all_sections	SRR5712483_1	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712483_1_fastqc.zip
+FastQC	all_sections	SRR5712483_2	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712483_2_fastqc.zip
+FastQC	all_sections	SRR5712484_1	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712484_1_fastqc.zip
+FastQC	all_sections	SRR5712484_2	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712484_2_fastqc.zip
+FastQC	all_sections	SRR5712485_1	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712485_1_fastqc.zip
+FastQC	all_sections	SRR5712485_2	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712485_2_fastqc.zip
+FastQC	all_sections	SRR5712486_1	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712486_1_fastqc.zip
+FastQC	all_sections	SRR5712486_2	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712486_2_fastqc.zip
+FastQC	all_sections	SRR5712487_1	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712487_1_fastqc.zip
+FastQC	all_sections	SRR5712487_2	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712487_2_fastqc.zip
+FastQC	all_sections	SRR5712482_1	/home/tfm-eimt/cgomez/work/test/normal_qc_raw/SRR5712482_1_fastqc.zip
