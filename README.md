@@ -26,12 +26,12 @@ Once we have the BioProyect id, we will retrieve the ids of the SRA Runs in: htt
 
 ```
 File        Group
-SRR5679909  coronary
-SRR5679908  coronary
-SRR5679907  coronary
-SRR5679906  coronary
-SRR5679905  coronary
 SRR5679904  coronary
+SRR5679905  coronary
+SRR5679906  coronary
+SRR5679907  coronary
+SRR5679908  coronary
+SRR5679909  coronary
 SRR5712482  normal
 SRR5712483  normal
 SRR5712484  normal
@@ -47,10 +47,10 @@ Now we can run the script [Download.R](https://github.com/carmengmz/circRNA/blob
 As a result, at the end of the script, in the working directory we will have the downloaded sra files:
 
 ```zsh
-phenodata.txt   SRR5679904.sra    SRR5679905.sra    SRR5679906.sra
-SRR5679907.sra  SRR5679908.sra    SRR5679909.sra    SRR5712482.sra
-SRR5712483.sra  SRR5712484.sra    SRR5712485.sra    SRR5712486.sra   
-SRR5712487.sra 
+phenodata.txt   SRR5679907.sra  SRR5712483.sra    SRR5712487.sra     
+SRR5679904.sra  SRR5679908.sra  SRR5712484.sra   
+SRR5679905.sra  SRR5679909.sra  SRR5712485.sra          
+SRR5679906.sra  SRR5712482.sra  SRR5712486.sra 
 ```
 
 ### Converting to FASTQ
@@ -69,26 +69,21 @@ The <b>fastq-dump</b> tool must be able to be executed directly in the working d
 As a result, at the end of the script, in the working directory we will have the FASTQ files. SRA files can now be deleted to preserve disk space. In our example we have paired-end reads and this is the content of the working directory:
 
 ```
-phenodata.txt
-SRR5679909_1.fastq
-SRR5679909_2.fastq
-SRR5679908_1.fastq
-SRR5679908_2.fastq
-SRR5679907_1.fastq
-SRR5679907_2.fastq
-SRR5712482_1.fastq
-SRR5712482_2.fastq
-SRR5712483_1.fastq
-SRR5712483_2.fastq
-SRR5712484_1.fastq
-SRR5712484_2.fastq
+phenodata.txt       SRR5679907_1.fastq  SRR5712482_2.fastq  SRR5712486_1.fastq
+SRR5679904_1.fastq  SRR5679907_2.fastq  SRR5712483_1.fastq  SRR5712486_2.fastq
+SRR5679904_2.fastq  SRR5679908_1.fastq  SRR5712483_2.fastq  SRR5712487_1.fastq
+SRR5679905_1.fastq  SRR5679908_2.fastq  SRR5712484_1.fastq  SRR5712487_2.fastq
+SRR5679905_2.fastq  SRR5679909_1.fastq  SRR5712484_2.fastq
+SRR5679906_1.fastq  SRR5679909_2.fastq  SRR5712485_1.fastq
+SRR5679906_2.fastq  SRR5712482_1.fastq  SRR5712485_2.fastq
 ```
+
 ### Quality control and cleaning of raw data
 
 The integral evaluation of the quality and the preprocessing of the raw data are the first and most critical steps for all subsequent analyzes and the correct interpretation of the results. We will use:
-- [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) for quality control before and after cleaning the raw data.
-- [Fastp](https://github.com/OpenGene/fastp) for cleaning raw data
-- [MultiQC](http://multiqc.info) for summarize quality reports  
+- [FASTQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/): quality control before and after cleaning the raw data (MultiQC has not yet implemented the integration with Fastp).
+- [Fastp](https://github.com/OpenGene/fastp): elimination of adapters, filtering of the readings and correction of the bases.
+- [MultiQC](http://multiqc.info): summarize FASTQC quality reports  
 
 In [Cleaning and preprocessing RNA-Seq](https://github.com/carmengmz/circRNA/wiki/Cleaning-and-preprocessing-RNA-Seq) are explained the reasons for the choice of these tools. 
 
