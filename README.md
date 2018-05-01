@@ -148,39 +148,50 @@ The the first step to using BWA for aligning our sequences is to build a referen
 ```
 bwa index -a bwtsw hg38.fa
 ```
-Now, we align our readings to the reference genome:
+Now, we align our readings to the reference genome (for more details, see the CIRI2 manual):
 ```
-bwa mem -t 10 –T 19 hg38.fa read_1.fastq read_2.fastq 1> aln-pe.sam 2> aln-pe.log
+bwa mem –T 19 ref.fa reads.fq > aln-se.sam (for single-end reads)
+bwa mem –T 19 ref.fa read1.fq read2.fq > aln-pe.sam (for paired-end reads)
 ```
 Finally, we passed the sam file generated in the previous command to the CIRI2 tool:
 ```
 perl CIRI2.pl -T 10 -I aln-pe.sam -O  outfile -F hg38.fa -A hg38.gtf > ciri.log
 ```
-Here we are using 10 threads (<b>-t 10</b> in BWA command and <b>-T 10</b> in CIRI2 command), you can change that modifing the value of the <b>num_thread</b> variable in the [CircRNA.R](https://github.com/carmengmz/circRNA/blob/master/src/CircRNA.R) script.
+Here we are using 10 threads (<b>-t 10</b> in BWA command and <b>-T 10</b> in CIRI2 command), you can change that modifing the value of the <b>num_thread</b> variable in the [Findcrna.R](https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script.
 
 As a result we will get a text file <b>outfile</b> with the circRNAs identified in our reads.
 
-To automate the detection of circRNAs in all samples, the [CircRNA.R](https://github.com/carmengmz/circRNA/blob/master/src/CircRNA.R) script has been implemented. The script is designed to work with paired-end reads. The dependencies are the following (must be able to be executed directly in the working directory):
+To automate the detection of circRNAs in all samples, the [Findcrna.R](https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script has been implemented. The script is designed to work with paired-end reads. The dependencies are the following (must be able to be executed directly in the working directory):
 
 - [BWA-MEM Aligner](http://bio-bwa.sourceforge.net/)
 - [Perl](https://www.perl.org/)
 - [CIRI2](https://sourceforge.net/projects/ciri/files/CIRI2/)
 
 Also, the following files must be in working directory:
-- the FASTA reference sequence named <b>hg38.fa</b> and the GTF data with the annotations <b>hg38.gtf</b>. This names can be changed editing the <b>ref_fasta</b> and <b>ref_gtf</b> variables in [CircRNA.R](https://github.com/carmengmz/circRNA/blob/master/src/CircRNA.R) script.
+- the FASTA reference sequence named <b>hg38.fa</b> and the GTF data with the annotations <b>hg38.gtf</b>. This names can be changed editing the <b>ref_fasta</b> and <b>ref_gtf</b> variables in [Findcrna.R] (https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script.
 - the <b>phenodata.txt</b> file.
-- the clean FASTQ sequences. Expected names: <b>&lt;File&gt;_clean_1.fastq</b> and <b>&lt;File&gt;_clean_2.fastq</b>, being <b>File</b> the name of each sample specified in <b>phenodata.txt</b>
+- the clean FASTQ sequences.   
+    -- Expected names for singled-end data: <b>&lt;File&gt;_clean.fastq</b>       
+    -- Expected names for paired-end data: <b>&lt;File&gt;_clean_1.fastq</b> and <b>&lt;File&gt;_clean_2.fastq</b>     
+    being <b>File</b> the name of each sample specified in <b>phenodata.txt</b>
 
-As a result we will get a text file for each sample named <b>&lt;File&gt;-outfile</b> with the detected circRNAs. The outfile(s) of our example can be found in the [example]() forder. Also we will get the sam files with the alignment of each sample to the reference genome, the log files of the aligment and the log files of CIRI2.
+In a Unix like S.O. command line we will run the [Findcrna.R] (https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script whith:
 
-This is the content now of our working directory:
+```
+> Rscript Clean.R [option]
+```
+being option: -s for single-end reads, -p for paired end reads
+
+As a result we will get a text file for each sample named <b>&lt;File&gt;-outfile</b> with the detected circRNAs. The outfiles of our example can be found in the [example](https://github.com/carmengmz/circRNA/tree/master/example) forder. Also we will get the sam files with the alignment of each sample to the reference genome, the log files of the aligment and the log files of CIRI2.
+
+This would be now the content of our working directory:
 ```
 ```
 
-### Annotating circRNA and Generating table with counts
+### Annotating circRNA to generate table with counts
 
-### Filtering and normalization
+### Filtering and normalization of circRNA counts table
 
-### Machine Learning Classification
+### Machine Learning Classification using the normalized circRNA counts table
 
 
