@@ -93,7 +93,7 @@ All the tools (<b>FASTQC</b>, <b>Fastp</b> and <b>MultiQC</b>) must be able to b
   
 2. Then it will use <b>Fastp</b> tool to clean raw data. As a result we will have the same FASTQ files but with suffixes <b>_clean.FASTQ</b> (for single-end reads) or <b>_clean_1.FASTQ</b> and <b>_clean_2.FASTQ</b> (for paired-end reads). <b>Fastp</b> also generates a quality control report for each file (or pair of files if they are paired-end reads). These reports will be stored in the <b>fastp</b> folder.
 
-3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_qcy_clean</b> (one folder by each group). The MultiQC report is a "*.html" file with MQC_ prefix inside these folders.
+3. And to finish it will make quality control of clean FASTQ with the <b>FASTQC</b> tool. Then it will sumarize quality reports with <b>MultiQC</b> by each group defined in <b>phenodata.txt</b>. The reports will be stored in folders: <b>&lt;group&gt;_qc_clean</b> (one folder by each group). The MultiQC report is a html file with MQC_ prefix inside these folders.
 
 The raw <b>*.fastq</b> files and the <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will run the [Clean.R](https://github.com/carmengmz/circRNA/blob/master/src/Clean.R) script with:
 
@@ -154,7 +154,7 @@ Here we are using 10 threads (<b>-t 10</b> in BWA command and <b>-T 10</b> in CI
 
 As a result we will get a text file <b>outfile</b> with the circRNAs identified in our reads.
 
-To automate the detection of circRNAs in all samples, the [Findcrna.R](https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script has been implemented. The script is designed to work with paired-end reads. The dependencies are the following (must be able to be executed directly in the working directory):
+To automate the detection of circRNAs in all samples, the [Findcrna.R](https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script has been implemented. The dependencies are the following (must be able to be executed directly in the working directory):
 
 - [BWA-MEM Aligner](http://bio-bwa.sourceforge.net/)
 - [Perl](https://www.perl.org/)
