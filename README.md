@@ -22,16 +22,22 @@ From the search results we have selected two projects containing sequenced sampl
 
 From every result (follow the links) we retrieve the id of the BioProyect: PRJNA390278 and 	PRJNA390988.
 
-Once we have the BioProyect id, we will retrieve the ids of the SRA Runs in: https://www.ncbi.nlm.nih.gov/Traces/study/ (under the column Run) and we will build a text file separated by tabs called <b>phenodata.txt</b> with two columns: <b>File</b> and <b>Group</b>. In our [example](https://github.com/carmengmz/circRNA/tree/master/example) we will work with three samples of each group:
+Once we have the BioProyect id, we will retrieve the ids of the SRA Runs in: https://www.ncbi.nlm.nih.gov/Traces/study/ (under the column Run) and we will build a text file separated by tabs called <b>phenodata.txt</b> with two columns: <b>File</b> and <b>Group</b>. In our [example](https://github.com/carmengmz/circRNA/tree/master/example) we will work with six samples of each group:
 
 ```
-File  Group
+File        Group
 SRR5679909  coronary
 SRR5679908  coronary
 SRR5679907  coronary
+SRR5679906  coronary
+SRR5679905  coronary
+SRR5679904  coronary
 SRR5712482  normal
 SRR5712483  normal
 SRR5712484  normal
+SRR5712485  normal
+SRR5712486  normal
+SRR5712487  normal
 ```
 
 Now we can run the script [Download.R](https://github.com/carmengmz/circRNA/blob/master/src/Download.R) to download the <b>*.sra</b> files. The <b>phenodata.txt</b> file must be in the working directory. In a Unix like S.O. command line we will type:
@@ -39,11 +45,14 @@ Now we can run the script [Download.R](https://github.com/carmengmz/circRNA/blob
 > Rscript Download.R
 ```
 As a result, at the end of the script, in the working directory we will have the downloaded sra files:
-```
+```bash
 phenodata.txt
-SRR5679909.sra
-SRR5679908.sra
+SRR5679904.sra
+SRR5679905.sra
+SRR5679906.sra
 SRR5679907.sra
+SRR5679908.sra
+SRR5679909.sra
 SRR5712482.sra
 SRR5712483.sra
 SRR5712484.sra 
