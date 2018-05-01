@@ -45,17 +45,12 @@ Now we can run the script [Download.R](https://github.com/carmengmz/circRNA/blob
 > Rscript Download.R
 ```
 As a result, at the end of the script, in the working directory we will have the downloaded sra files:
-```bash
-phenodata.txt
-SRR5679904.sra
-SRR5679905.sra
-SRR5679906.sra
-SRR5679907.sra
-SRR5679908.sra
-SRR5679909.sra
-SRR5712482.sra
-SRR5712483.sra
-SRR5712484.sra 
+
+```zsh
+phenodata.txt   SRR5679904.sra    SRR5679905.sra    SRR5679906.sra
+SRR5679907.sra  SRR5679908.sra    SRR5679909.sra    SRR5712482.sra
+SRR5712483.sra  SRR5712484.sra    SRR5712485.sra    SRR5712486.sra   
+SRR5712487.sra 
 ```
 
 ### Converting to FASTQ
