@@ -51,14 +51,15 @@ Split train/test
 ```{r}
 
 getPartition <- function(group, table, ratio) {
-# Esta función devuelve una lista con dos matrices: xtrain y xtest 
-# con los datos de entrenamiento y pruebas
-# y dos data.frames ytrain e ytest, con las clases de esos dos conjuntos
-  
-# Argumentos:
-#   group = clases de la tabla que recibe por parámetro
-#   table = matrix de datos
-#   ratio = porcentaje de muestras para pruebas
+Split data in table and group in train/test sets using ratio
+
+Returns a list with xtrain/xtest data matrix
+and ytrain/ytest data frames with classes
+
+# Arguments:
+#   group = table classes
+#   table = data matrix
+#   ratio = test percent data
   
   ind <- c()
   
