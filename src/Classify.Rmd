@@ -51,10 +51,9 @@ Split train/test
 ```{r}
 
 getPartition <- function(group, table, ratio) {
-Split data in table and group in train/test sets using ratio
-
-Returns a list with xtrain/xtest data matrix
-and ytrain/ytest data frames with classes
+# Split data in table and group in train/test sets using ratio
+# Returns a list with xtrain/xtest data matrix
+# and ytrain/ytest data frames with classes
 
 # Arguments:
 #   group = table classes
