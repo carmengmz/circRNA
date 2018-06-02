@@ -145,8 +145,8 @@ bwa index -a bwtsw hg38.fa
 ```
 Now, we align our readings to the reference genome (for more details, see the CIRI2 manual):
 ```
-bwa mem –T 19 ref.fa reads.fq > aln-se.sam (for single-end reads)
-bwa mem –T 19 ref.fa read1.fq read2.fq > aln-pe.sam (for paired-end reads)
+bwa mem –T 19 -t 10 hg38.fa reads.fq > aln-se.sam (for single-end reads)
+bwa mem –T 19 -t 10 hg38.fa read1.fq read2.fq > aln-pe.sam (for paired-end reads)
 ```
 Finally, we passed the sam file generated in the previous command to the CIRI2 tool:
 ```
