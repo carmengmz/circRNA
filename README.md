@@ -178,8 +178,15 @@ In a Unix like S.O. command line we will run the [Findcrna.R](https://github.com
 
 As a result we will get a text file for each sample named <b>&lt;File&gt;-outfile</b> with the detected circRNAs. The outfiles of our example can be found in the [example](https://github.com/carmengmz/circRNA/tree/master/example) forder. Also we will get the sam files with the alignment of each sample to the reference genome, the log files of the aligment and the log files of CIRI2.
 
-This would be now the content of our working directory:
+This would be now the content of our working directory (clean FASTQ files have been deleted to preserve disk space):
 ```
+phenodata.txt       SRR5679907-outfile  SRR5712482-aln.sam   SRR5712486-outfile    
+SRR5679904-outfile  SRR5679907-aln.sam  SRR5712483-outfile   SRR5712486-aln.sam
+SRR5679904-aln.sam  SRR5679908-outfile  SRR5712483-aln.sam   SRR5712487-outfile
+SRR5679905-outfile  SRR5679908-aln.sam  SRR5712484-outfile   SRR5712487-aln.sam
+SRR5679905-aln.sam  SRR5679909-outfile  SRR5712484-aln.sam          
+SRR5679906-outfile  SRR5679909-aln.sam  SRR5712485-outfile 
+SRR5679906-aln.sam  SRR5712482-outfile  SRR5712485-aln.sam  
 ```
 
 ### Annotating circRNA to generate table with counts
