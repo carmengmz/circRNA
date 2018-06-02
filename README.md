@@ -163,17 +163,17 @@ To automate the detection of circRNAs in all samples, the [Findcrna.R](https://g
 - [CIRI2](https://sourceforge.net/projects/ciri/files/CIRI2/)
 
 Also, the following files must be in working directory:
-- the FASTA reference sequence named <b>hg38.fa</b> and the GTF data with the annotations <b>hg38.gtf</b>. This names can be changed editing the <b>ref_fasta</b> and <b>ref_gtf</b> variables in [Findcrna.R] (https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script.
+- the FASTA reference sequence named <b>hg38.fa</b> and the GTF data with the annotations <b>hg38.gtf</b>. This names can be changed editing the <b>ref_fasta</b> and <b>ref_gtf</b> variables in [Findcrna.R](https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script.
 - the <b>phenodata.txt</b> file.
 - the clean FASTQ sequences.   
     -- Expected names for singled-end data: <b>&lt;File&gt;_clean.fastq</b>       
     -- Expected names for paired-end data: <b>&lt;File&gt;_clean_1.fastq</b> and <b>&lt;File&gt;_clean_2.fastq</b>     
     being <b>File</b> the name of each sample specified in <b>phenodata.txt</b>
 
-In a Unix like S.O. command line we will run the [Findcrna.R] (https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script whith:
+In a Unix like S.O. command line we will run the [Findcrna.R](https://github.com/carmengmz/circRNA/blob/master/src/Findcrna.R) script whith:
 
 ```
-> Rscript Clean.R
+> Rscript Findcrna.R
 ```
 
 As a result we will get a text file for each sample named <b>&lt;File&gt;-outfile</b> with the detected circRNAs. The outfiles of our example can be found in the [example](https://github.com/carmengmz/circRNA/tree/master/example) forder. Also we will get the sam files with the alignment of each sample to the reference genome, the log files of the aligment and the log files of CIRI2.
