@@ -10,13 +10,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-Modify base/contrast with the groups in phenodata.txt
+Modify base/contrast with the two desired groups from phenodata.txt
 
 phenodata.txt file must contain two columns separated by tabs
  - the first one with the name of samples
  - the second with the group to which each samplebelongs
  
- circ_annotations.rds must contain circRNA read counts with sample names in columns with the same name used in phenodata.txt, and circRNA id in rows.
+circ_annotations.rds must contain circRNA read counts with sample names in columns with the same name used in phenodata.txt, and circRNA id in rows.
 
 ```{r, message=FALSE}
 library(readr)
