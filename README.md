@@ -191,8 +191,57 @@ SRR5679906-aln.sam  SRR5712482-outfile  SRR5712485-aln.sam
 
 ### Annotating circRNA to generate table with counts
 
-### Filtering and normalization of circRNA counts table
+Once obtained, using the CIRI2 tool, the output files (<identifier>-outfile) with the circRNAs detected in each sample, we will proceed to the creation of a single table with the readings counts of the circRNAs of each sample. We will use the following fields:
+  
+<table>
+  <tr> 
+    <td> Field in the output of CIRI2 </td><td> Description </td>
+  </tr>
+  <tr>
+    <td> circRNA_ID </td> <td>  Identifier for the circRNA in the chromosome format: start | final.
+    <br/>For example, chr1: 1223244 | 1223968 </td>
+  </tr>
+  <tr>
+    <td> chr </td> <td> Chromosome </td>
+  </tr>
+  <tr>
+    <td> circRNA_start </td> <td> Initial coordinate </td>
+  </tr>
+  <tr>
+    <td> circRNA_end </td> <td> Final coordinate </td>
+  </tr>
+  <tr>
+    <td> #junction_readas </td> <td> Number of reads </td>
+  </tr>
+  <tr>
+    <td> strand </td> <td> Strand (+/-) </td>
+  </tr>
+</table>
+
+To construct the table of readings, a margin of 10 positions was allowed at the beginning and at the end of the coordinates to consider that a detection belonged to the same circRNA. 
+
+The automation of the annotation process to build the table with the reading counts has been carried out in the [Annotate.R](https://github.com/carmengmz/circRNA/blob/master/src/Annotate.R) script. 
+
+The range of difference positions allowed at the start and end can be set in the variable <b>range</b>. The script can be executed in any operating system that supports the environment R. 
+
+In a Unix/Linux environment we would do it with the following command:
+```
+> Rscript Annotate.R
+```
 
 ### Machine Learning Classification using the normalized circRNA counts table
+
+The objective is to train a Machine Learning algorithm that learns to discriminate between samples of circRNAs detected in peripheral blood exosomes of people with some disease and samples from healthy people.
+
+In first place, we will filter circRNAs whose reading counts are below 10 in absolute value in at least 70% of the samples (you can change these values inside the script), and then we will use the stabilizing variance transformation (VST) to eliminate the dependence between the mean and the variance. 
+
+Next, we will generate train and test sets, since the model must be trained in a subset of samples (train) and then validated in a different subset of samples (test).
+
+We will continue selecting, with a Random Forest algorithm, in the training set, the circRNAs considered most important. Whith these circRNAs we will train three different classification models: Support Vector Machine, Random Forest and Extreme Learning Neural Network. 
+
+To finish, we will apply the best classification model, among those generated in the training process, on the test set to check whether the training results are extrapolated to a new data set and we will report the AUC as a measure of their performance.
+
+The implementation has been done in R and has been automated in the R Markdown [Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/src/Classify.Rmd) script. This script can be executed on any operating system that has a graphical environment in which Rstudio can be installed (https://www.rstudio.com/)
+
 
 
