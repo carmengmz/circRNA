@@ -1,0 +1,225 @@
+---
+title: "Hepatocellular"
+author: "Carmen Gomez Valenzuela"
+date: "Junio de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Cargamos los counts e información del grupo de cada muestra
+
+```{r, message=FALSE}
+library(readr)
+
+phenodata <- read_delim("phenodata.txt", "\t", escape_double = FALSE, trim_ws = TRUE)
+table <- readRDS("circ_annotations.rds")
+
+```
+
+Filtramos las lecturas menores a 10 en al menos el 70% de las muestras
+
+```{r}
+contrast = "hepatocellular"
+base = "normal"
+
+counts <- table[,phenodata$File[phenodata$Group %in% c(base,contrast)]]
+counts <- counts[ rowSums(counts >= 10) >= dim(counts)[2]*0.7,]
+group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
+
+```
+
+Variance Stabilizing Transformation
+```{r, message=FALSE}
+library(DESeq2)
+vst <- vst(as.matrix(counts), fitType="parametric")
+```
+
+Train/Test sets
+
+```{r}
+
+getPartition <- function(group, table, ratio) {
+# Esta función devuelve una lista con dos matrices: xtrain y xtest 
+# con los datos de entrenamiento y pruebas
+# y dos data.frames ytrain e ytest, con las clases de esos dos conjuntos
+  
+# Argumentos:
+#   group = clases de la tabla que recibe por parámetro
+#   table = matrix de datos
+#   ratio = porcentaje de muestras para pruebas
+  
+  ind <- c()
+  
+  for (i in levels(as.factor(group))) {
+    gind <- which(group == i)
+    nTest = ceiling(length(gind)*ratio)
+    
+    ind <- c(ind,sample(gind,nTest,FALSE))
+  }
+  
+  data.train = as.matrix(table[,-ind])
+  classtr = data.frame(condition = as.factor(group[-ind]))
+  
+  data.test = as.matrix(table[,ind])
+  classts = data.frame(condition = as.factor(group[ind]))
+  
+  ret <- list("xtrain" = data.train, "xtest" = data.test, 
+              "ytrain" = classtr, "ytest" = classts)
+  return(ret)
+}
+
+set.seed(12345)
+
+dat <- getPartition(as.factor(group), vst,0.2)
+
+xtrain <- dat$xtrain
+ytrain <- factor(dat$ytrain$condition)
+
+xtest <- dat$xtest
+ytest <- factor(dat$ytest$condition)
+
+```
+
+Selección de predictores
+
+```{r, message=FALSE}
+library(randomForest)
+
+set.seed(12345)
+
+forest.imp = randomForest(class ~. , data = data.frame(t(xtrain), class = ytrain), 
+		ntree = 1000, keep.forest = FALSE, importance = TRUE)
+		
+att.scores = as.data.frame(importance(forest.imp, type = 1))
+
+varImpPlot(forest.imp, cex=0.6)
+```
+
+```{r}
+
+k=95
+
+selected.circs <- rownames(att.scores)[order(att.scores, decreasing = TRUE)][1:k]
+selected.circs
+
+xtrain.cut = xtrain[selected.circs,]
+
+d <- dist(t(xtrain.cut))
+mds <- cmdscale(d, k=2) 
+plot(mds[,1], mds[,2], type="p", main = paste(contrast, "vs", base, ": Eucledian MDS.",k,"circRNAs"), 
+     col = as.numeric(as.factor(ytrain)),pch=as.numeric(as.factor(ytrain)))
+legend("topleft", legend=c(contrast, base),
+       col= c("black","red"), pch=c(1,2), cex=0.8)
+```
+```{r, message=FALSE}
+set.seed(12345)
+library(e1071)
+
+svm_tune <- tune.svm(class ~ ., data=data.frame(class=ytrain, t(xtrain.cut)),  
+                          cost = 2^(0:9), tunecontrol=tune.control(cross=5))
+svm_tune
+plot(svm_tune)
+```
+
+Predicción y evaluación
+
+```{r, message=FALSE}
+library(caret)
+pred.svm <- predict(svm_tune$best.model,t(xtest))
+confusionMatrix(pred.svm, ytest)
+```
+```{r, message=FALSE}
+library(pROC)
+roc_obj <- roc(as.numeric(as.factor(ytest)), as.numeric(as.factor(pred.svm)))
+auc(roc_obj)
+plot(roc_obj)
+```
+
+```{r, message=FALSE}
+set.seed(12345)
+library(e1071)
+
+svm_tune <- tune.svm(class ~ ., data=data.frame(class=ytrain, t(xtrain.cut)),  
+                          cost = c(1,2,3,4,5,6,7,8), gamma = c(0.003,0.0045,0.005), tunecontrol=tune.control(cross=5), kernel ="radial")
+svm_tune
+plot(svm_tune)
+```
+
+```{r}
+library(caret)
+pred.svm <- predict(svm_tune$best.model, t(xtest))
+confusionMatrix(pred.svm, ytest)
+```
+```{r, message=FALSE}
+library(pROC)
+roc_obj <- roc(as.numeric(as.factor(ytest)), as.numeric(as.factor(pred.svm)))
+auc(roc_obj)
+plot(roc_obj)
+```
+
+
+```{r,message=FALSE}
+set.seed(12345)
+library(caret)
+
+numFolds <- trainControl(method = 'cv', number = 5, search="random",classProbs = TRUE,
+                                      summaryFunction = twoClassSummary)
+tunegrid <- expand.grid(.mtry=seq(1,nrow(xtrain.cut),1))
+
+model_rf <- train(x = t(xtrain.cut), y = as.factor(ytrain), method = "rf",
+                trControl = numFolds, tuneGrid=tunegrid, metric="ROC", importance = T, ntree=1000)
+
+model_rf
+```
+
+```{r, message=FALSE}
+library(caret)
+pred.rf <- predict(model_rf, t(xtest))
+confusionMatrix(pred.rf, ytest)
+```
+```{r}
+library(pROC)
+roc_obj <- roc(as.numeric(as.factor(ytest)), as.numeric(as.factor(pred.rf)))
+auc(roc_obj)
+plot(roc_obj)
+```
+
+```{r, message=FALSE}
+library(caret)
+set.seed(12345)
+
+elm_fun <- getModelInfo("elm")[[1]]
+
+elm_fun$prob <- function (modelFit, newdata, submodels = NULL)  {
+  out <- exp(predict(modelFit, newdata))
+  t(apply(out, 1, function(x) x/sum(x)))
+}
+
+numFolds <- trainControl(method = 'cv', number = 5, search="grid", classProbs = TRUE,
+                                      summaryFunction = twoClassSummary)
+
+tunegrid <- expand.grid(nhid=c(1000,1500,2000,2500), actfun=c("purelin"))
+
+model.nn <- train(x = t(xtrain), y = as.factor(ytrain), method = elm_fun,
+                trControl = numFolds, tuneGrid=tunegrid, metric="ROC")
+
+plot(model.nn)
+model.nn
+
+```
+
+```{r, message=FALSE}
+pred.nn <- predict(model.nn,t(xtest))
+confusionMatrix(pred.nn, ytest)
+```
+
+```{r, message=FALSE}
+library(pROC)
+roc_obj <- roc(as.numeric(as.factor(ytest)), as.numeric(as.factor(pred.nn)))
+auc(roc_obj)
+plot(roc_obj)
+```
+
