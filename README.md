@@ -228,7 +228,7 @@ In a Unix/Linux environment we would do it with the following command:
 ```
 > Rscript Annotate.R
 ```
-The output of this script is the counts table in a file called <b>circ_annotations.rds</b>
+As a result we will get the counts table in a file called <b>circ_annotations.rds</b>
 
 ### Machine Learning Classification using the normalized circRNA counts table
 
