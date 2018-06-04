@@ -232,8 +232,6 @@ As a result we will get the counts table in a file called <b>circ_annotations.rd
 
 ### Machine Learning Classification using the normalized circRNA counts table
 
-Our goal is to train a Machine Learning algorithm that learns to discriminate between samples of circRNAs detected in peripheral blood exosomes of people with some disease and samples from healthy people.
-
 In first place, we will filter circRNAs whose reading counts are below 10 in absolute value in at least 70% of the samples (you can change these values inside the script), and then we will use the stabilizing variance transformation (VST) to eliminate the dependence between the mean and the variance. 
 
 Next, we will generate train and test sets, since the model must be trained in a subset of samples (train) and then validated in a different subset of samples (test).
@@ -243,6 +241,8 @@ We will continue selecting, with a Random Forest algorithm, in the training set,
 To finish, we will apply the best classification model, among those generated in the training process, on the test set to check whether the training results are extrapolated to a new data set and we will report the AUC as a measure of their performance.
 
 The implementation has been done in R and has been automated in the R Markdown [Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/src/Classify.Rmd) script. This script can be executed on any operating system that has a graphical environment in which Rstudio can be installed (https://www.rstudio.com/)
+
+You must tune hyperparams and set up a suitable value for some vars (as cross-validation folds). In the code there are indications to do that and you can find a tuned script for our example in [Coronary-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/example/Coronary-Classify.Rmd) and the output report [Coronary-Classify.html](https://carmengmz.github.io/circRNA/example/Coronary-Classify.html)
 
 
 
