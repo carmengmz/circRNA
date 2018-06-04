@@ -46,7 +46,7 @@ for(f in phenodata$File) {
 for(f in phenodata$File) {
 
   file <- paste("aln-",f,".sam",sep="")
-  cmd = paste("perl CIRI2.pl -T 10 -I ",file," -O  outfile-",f," -F ", ref_fasta," -A ", ref_gtf, "> ciri-",f,".log", sep="")
+  cmd = paste("perl CIRI2.pl -T 10 -I ",file," -O  ",f,"-outfile -F ", ref_fasta," -A ", ref_gtf, "> ciri-",f,".log", sep="")
   cat(cmd,"\n")
   system(cmd)
 }
