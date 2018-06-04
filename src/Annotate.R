@@ -20,7 +20,7 @@ Files <- phenodata$File
 
 for (f in Files) {
 
-  name <- paste(f,"-outfile",sep="")
+  name <- paste("outfile-",f,sep="")
   circ <- read_delim(name,"\t", escape_double = FALSE, trim_ws = TRUE)
 
   for (i in 1:nrow(circ)) {
