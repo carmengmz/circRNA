@@ -78,4 +78,3 @@ SRR5714918	pancreatic
 SRR5714919	pancreatic
 SRR5714920	pancreatic
 SRR5714921	pancreatic
-
