@@ -12,13 +12,10 @@
 
 Este repositorio contiene:              
 
-- Carpeta "src": <a href="https://github.com/carmengmz/circRNA/tree/master/src" target="_blank">
-          Código fuente y manual de usuario para los scripts que automatizan todas las fases del proyecto</a>
+- Directorio [src](https://github.com/carmengmz/circRNA/tree/master/src): Código fuente y manual de usuario para los scripts que automatizan todas las fases del proyecto    
 
-- Carpeta "example": <a href="https://github.com/carmengmz/circRNA/tree/master/example" target="_blank"> 
-          Archivos intermedios del ejemplo de uso expuesto en el manual de usuario </a>
+- Directorio [example](https://github.com/carmengmz/circRNA/tree/master/example): Resultados intermedios del ejemplo de uso expuesto en el manual de usuario 
           
-- Carpeta "experiment": <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/" target="_blank">
-          Resultados intermedios del proyecto (informes de calidad de las librerías RNA-Seq, informes de clasificación, etc) </a>
+- Directorio [experiment](https://github.com/carmengmz/circRNA/tree/master/experiment/): Resultados intermedios del proyecto
           
       
