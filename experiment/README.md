@@ -1,19 +1,17 @@
 <h2>Trabajo Fin de Máster: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores</h2>
-<h2>Máster en Bioinformática y Bioestadística. Universitat Oberta de Catalunya</h2>
+<h3>Máster en Bioinformática y Bioestadística. Universitat Oberta de Catalunya</h3>
 
-<b>Autora: Carmen Gómez Valenzuela</b>
-
-<b>Área: Genómica computacional</b>
-        
-<b>Profesor consultor: Dr. Amadís Pagès Pinós </b>
-
-<b>Profesor responsable: Dr. Carles Ventura Royo </b>
+<b>Autora: </b> Carmen Gómez Valenzuela     
+<b>Área: </b> Genómica computacional     
+<b>Profesor consultor: </b> Dr. Amadís Pagès Pinós    
+<b>Profesor responsable: </b> Dr. Carles Ventura Royo     
 
 <i>Junio de 2018</i>
 
 <h3>Repositorio de resultados intermedios. </h3>
 <hr/>      
-Contenidos del repositorio de resultados intermedios:
+Contenidos del repositorio de resultados intermedios:    
+
 - <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
           Informes de calidad de las librerías RNA-Seq </a>
           
