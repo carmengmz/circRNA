@@ -12,19 +12,22 @@
 <hr/>      
 Repositorio de resultados intermedios. Contenidos:    
             
-
-- <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
+            - Archivo phenodata.txt con el identificador y grupo de cada muestra de RNA-Seq utilizada.
+            
+            - Archivos con las anotaciones de los circRNAs detectados: circ_annotations.csv y circ_annotatios.rds
+            
+            - <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
           Informes de calidad de las librerías RNA-Seq </a>
           
-- <a href="https://carmengmz.github.io/circRNA/experiment/Colorectal-Classify.html" target="_blank"> 
-          Cáncer colorectal: Informe de clasificación usando Machine Learning </a>
+            - <a href="https://carmengmz.github.io/circRNA/experiment/Colorectal-Classify.html" target="_blank"> 
+          Cáncer colorectal: Informe de clasificación usando Machine Learning </a> y archivo con la implementación: Colorectal-Classify.Rmd
           
-- <a href="https://carmengmz.github.io/circRNA/experiment/Hepatocellular-Classify.html" target="_blank"> 
-          Cáncer hepatocelular: Informe de clasificación usando Machine Learning </a>
+            - <a href="https://carmengmz.github.io/circRNA/experiment/Hepatocellular-Classify.html" target="_blank"> 
+          Cáncer hepatocelular: Informe de clasificación usando Machine Learning </a> y archivo con la implementación: Hepatocellular-Classify.Rmd
           
-- <a href="https://carmengmz.github.io/circRNA/experiment/Pancreatic-Classify.html" target="_blank"> 
-          Cáncer pancreático: Informe de clasificación usando Machine Learning </a>
+            - <a href="https://carmengmz.github.io/circRNA/experiment/Pancreatic-Classify.html" target="_blank"> 
+          Cáncer pancreático: Informe de clasificación usando Machine Learning </a> y archivo con la implementación: Pancreatic-Classify.Rmd
           
-- <a href="https://carmengmz.github.io/circRNA/experiment/DifferentialExpression.html" target="_blank"> 
-            Análisis de expresión diferencial </a>
+            - <a href="https://carmengmz.github.io/circRNA/experiment/DifferentialExpression.html" target="_blank"> 
+            Análisis de expresión diferencial </a> y archivo con la implementación: DifferentialExpression.Rmd
       
