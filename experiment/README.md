@@ -1,3 +1,4 @@
+
 <h2>Trabajo Fin de Máster: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores</h2>
 <h3>Máster en Bioinformática y Bioestadística. UOC (Universitat Oberta de Catalunya)</h3>
 
@@ -8,16 +9,22 @@
 
 <i>Junio de 2018</i>
 
-Contenidos:          
+<h3>Repositorio de resultados intermedios. </h3>
 <hr/>      
+Contenidos del repositorio de resultados intermedios:    
 
-- Carpeta "src": <a href="https://github.com/carmengmz/circRNA/tree/master/src" target="_blank">
-          Código fuente y manual de usuario para los scripts que automatizan todas las fases del proyecto</a>
-
-- Carpeta "example": <a href="https://github.com/carmengmz/circRNA/tree/master/example" target="_blank"> 
-          Ejemplo de uso de los scritps de automatización </a>
+- <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
+          Informes de calidad de las librerías RNA-Seq </a>
           
-- Carpeta "experiment": <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/" target="_blank">
-          Resultados intermedios del proyecto (informes de calidad de las librerías RNA-Seq, informes de clasificación, etc) </a>
+- <a href="https://carmengmz.github.io/circRNA/experiment/Colorectal-Classify.html" target="_blank"> 
+          Cáncer colorectal: Informe de clasificación usando Machine Learning </a>
           
+- <a href="https://carmengmz.github.io/circRNA/experiment/Hepatocellular-Classify.html" target="_blank"> 
+          Cáncer hepatocelular: Informe de clasificación usando Machine Learning </a>
+          
+- <a href="https://carmengmz.github.io/circRNA/experiment/Pancreatic-Classify.html" target="_blank"> 
+          Cáncer pancreático: Informe de clasificación usando Machine Learning </a>
+          
+- <a href="https://carmengmz.github.io/circRNA/experiment/DifferentialExpression.html" target="_blank"> 
+            Análisis de expresión diferencial </a>
       
