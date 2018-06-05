@@ -9,9 +9,8 @@
 
 <i>Junio de 2018</i>
 
-<h3>Repositorio de resultados intermedios. </h3>
 <hr/>      
-Contenidos del repositorio de resultados intermedios:    
+Repositorio de resultados intermedios. Contenidos:    
 
 - <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
           Informes de calidad de las librerías RNA-Seq </a>
