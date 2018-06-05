@@ -8,8 +8,7 @@
 
 <i>Junio de 2018</i>
 
-Contenidos:          
-<hr/>      
+Este repositorio contiene:              
 
 - Carpeta "src": <a href="https://github.com/carmengmz/circRNA/tree/master/src" target="_blank">
           Código fuente y manual de usuario para los scripts que automatizan todas las fases del proyecto</a>
