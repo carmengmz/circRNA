@@ -1,0 +1,132 @@
+---
+title: "TFM: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores"
+subtitle: "Análisis de expresíon diferencial"
+author: "Carmen Gómez Valenzuela"
+date: "Junio de 2018"
+output: 
+  html_document:
+    theme: paper
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Cargamos los counts e información del grupo de cada muestra.
+
+```{r, message=FALSE}
+library(readr)
+
+phenodata <- read_delim("phenodata.txt", "\t", escape_double = FALSE, trim_ws = TRUE)
+table <- readRDS("circ_annotations.rds")
+
+```
+
+Generamos un conjunto de datos con los recuentos para cada cáncer junto a los de personas sanas
+
+```{r}
+#Conjunto de datos Hepatocellular-Normal
+counts.hep <- table[,phenodata$File[phenodata$Group %in% c("normal","hepatocellular")]]
+counts.hep <- counts.hep[ rowSums(counts.hep) >0,]
+group.hep <- phenodata$Group[phenodata$Group %in% c("normal","hepatocellular")]
+
+#Conjunto de datos Pancreatic-Normal
+counts.panc <- table[,phenodata$File[phenodata$Group %in% c("normal","pancreatic")]]
+counts.panc <- counts.panc[rowSums(counts.panc)>0,]
+group.panc <- phenodata$Group[phenodata$Group %in% c("normal","pancreatic")]
+
+#Conjunto de datos Colorectal-Normal
+counts.col <- table[,phenodata$File[phenodata$Group %in% c("normal","colorectal")]]
+counts.col <- counts.col[rowSums(counts.col) >0,]
+group.col <- phenodata$Group[phenodata$Group %in% c("normal","colorectal")]
+```
+
+#Análisis de expresión diferencial para cáncer colorectal
+
+```{r, message=FALSE}
+library(DESeq2)
+dds.col <- DESeqDataSetFromMatrix(countData = counts.col, colData =data.frame(group = as.factor(group.col)), design= ~ group )
+dds.col <- estimateSizeFactors( dds.col )
+idx <- rowSums(counts(dds.col,normalized=TRUE)>=10) >= 10
+dds.col <- dds.col[idx,]
+dds.col <- DESeq( dds.col ,minReplicatesForReplace=Inf)
+res.col <- results( dds.col, cooksCutoff=FALSE, independentFiltering=FALSE)
+
+```
+
+Resultados para los circRNAs revisados
+
+```{r}
+res.col["circ5155",]
+```
+
+```{r}
+res.col["circ4785",]
+```
+```{r}
+res.col["circ27",]
+```
+```{r}
+res.col["circ3091",]
+```
+```{r}
+res.col["circ1870",]
+```
+```{r}
+res.col["circ1526",]
+```
+
+#Análisis de expresión diferencial para cáncer hepatocelular
+
+```{r, message=FALSE}
+dds.hep <- DESeqDataSetFromMatrix(countData = counts.hep, colData =data.frame(group = as.factor(group.hep)), design= ~ group )
+dds.hep <- estimateSizeFactors( dds.hep )
+idx <- rowSums(counts(dds.hep,normalized=TRUE)>=15) >= 0.7*ncol(counts.hep)
+dds.hep <- dds.hep[idx,]
+dds.hep <- DESeq( dds.hep ,minReplicatesForReplace=Inf)
+res.hep <- results( dds.hep, cooksCutoff=FALSE, independentFiltering=FALSE)
+
+```
+
+Resultados para los cirRNAs considerados relevantes
+
+```{r}
+res.hep["circ5155",]
+```
+```{r}
+res.hep["circ4785",]
+```
+```{r}
+res.hep["circ27",]
+```
+
+```{r}
+res.hep["circ1130",]
+```
+```{r}
+res.hep["circ1526",]
+```
+
+#Análisis de expresión diferencial para cáncer pancreático
+
+```{r, message=FALSE}
+dds.panc <- DESeqDataSetFromMatrix(countData = counts.panc, colData =data.frame(group = as.factor(group.panc)), design= ~ group )
+dds.panc <- estimateSizeFactors( dds.panc )
+idx <- rowSums(counts(dds.panc,normalized=TRUE)>=15) >= 0.7*ncol(counts.panc)
+dds.panc <- dds.panc[idx,]
+dds.panc <- DESeq( dds.panc ,minReplicatesForReplace=Inf)
+res.panc <- results( dds.panc, cooksCutoff=FALSE, independentFiltering=FALSE)
+
+```
+
+Ningún circRNA tiene una expresión diferencial estadísticamente signifcativa
+
+```{r}
+which(res.panc$padj <= 0.1)
+```
+```{r}
+min(res.panc$padj)
+```
+
