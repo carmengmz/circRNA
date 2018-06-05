@@ -8,6 +8,8 @@
 
 <i>Junio de 2018</i>
 
+<hr/>
+
 Este repositorio contiene:              
 
 - Carpeta "src": <a href="https://github.com/carmengmz/circRNA/tree/master/src" target="_blank">
