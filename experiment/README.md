@@ -11,7 +11,7 @@
 
 <hr/>      
 Repositorio de resultados intermedios. Contenidos:    
-
+             
 - <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
           Informes de calidad de las librerías RNA-Seq </a>
           
