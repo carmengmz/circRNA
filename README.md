@@ -16,7 +16,7 @@ Este repositorio contiene:
           Código fuente y manual de usuario para los scripts que automatizan todas las fases del proyecto</a>
 
 - Carpeta "example": <a href="https://github.com/carmengmz/circRNA/tree/master/example" target="_blank"> 
-          Ejemplo de uso de los scritps de automatización </a>
+          Archivos intermedios del ejemplo de uso expuesto en el manual de usuario </a>
           
 - Carpeta "experiment": <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/" target="_blank">
           Resultados intermedios del proyecto (informes de calidad de las librerías RNA-Seq, informes de clasificación, etc) </a>
