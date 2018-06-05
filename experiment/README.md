@@ -11,25 +11,21 @@
 
 <hr/>      
 
-Repositorio de resultados intermedios. Contenidos:
+Repositorio de resultados intermedios:
 
 
-- Archivo phenodata.txt con el identificador y grupo de cada muestra de RNA-Seq utilizada.
-            
-- Archivos con las anotaciones de los circRNAs detectados: circ_annotations.csv y circ_annotatios.rds
-            
-- <a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
+- Directorio [quality_reports]<a href="https://github.com/carmengmz/circRNA/tree/master/experiment/quality_reports" target="_blank">
           Informes de calidad de las librerías RNA-Seq </a>
+
+- Archivo [phenodata.txt](https://github.com/carmengmz/circRNA/blob/master/experiment/phenodata.txt): archivo utilizado por todos los scripts con el identificador y grupo de cada muestra de RNA-Seq utilizada.
+            
+- Archivo [circ_annotations.csv](https://github.com/carmengmz/circRNA/blob/master/experiment/circ_annotations.csv) y [circ_annotatios.rds](https://github.com/carmengmz/circRNA/blob/master/experiment/circ_annotations.rds) : recuentos de lectura y anotaciones de los circRNAs detectados: 
+                      
+- Cáncer colorectal: clasificación usando Machine Learning. Implementación: [Colorectal-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/Colorectal-Classify.Rmd) e informe de salida en html [Colorectal-Classify.html](https://carmengmz.github.io/circRNA/experiment/Colorectal-Classify.html)         
           
-- <a href="https://carmengmz.github.io/circRNA/experiment/Colorectal-Classify.html" target="_blank"> 
-            Cáncer colorectal: Informe de clasificación usando Machine Learning </a> y archivo con la implementación: Colorectal-Classify.Rmd
+- Cáncer hepatocelular: clasificación usando Machine Learning. Implementación: [Hepatocellular-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/Hepatocellular-Classify.Rmd) e informe de salida en html [Hepatocellular-Classify.html](https://carmengmz.github.io/circRNA/experiment/Hepatocellular-Classify.html)         
           
-- <a href="https://carmengmz.github.io/circRNA/experiment/Hepatocellular-Classify.html" target="_blank"> 
-          Cáncer hepatocelular: Informe de clasificación usando Machine Learning </a> y archivo con la implementación: Hepatocellular-Classify.Rmd
+- Cáncer pancreático: clasificación usando Machine Learning. Implementación: [Pancreatic-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/Pancreatic-Classify.Rmd) e informe de salida en html [Pancreatic-Classify.html](https://carmengmz.github.io/circRNA/experiment/Colorectal-Classify.html)         
           
-- <a href="https://carmengmz.github.io/circRNA/experiment/Pancreatic-Classify.html" target="_blank"> 
-          Cáncer pancreático: Informe de clasificación usando Machine Learning </a> y archivo con la implementación: Pancreatic-Classify.Rmd
-          
-- <a href="https://carmengmz.github.io/circRNA/experiment/DifferentialExpression.html" target="_blank"> 
-            Análisis de expresión diferencial </a> y archivo con la implementación: DifferentialExpression.Rmd
+- Análisis de expresión diferencial. Implementación: [DifferentialExpression.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/DifferentialExpression.Rmd) e informe de salida en html [DifferentialExpression.html](https://carmengmz.github.io/circRNA/experiment/DifferentialExpression.html)      
       
