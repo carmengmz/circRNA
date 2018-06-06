@@ -1,7 +1,8 @@
 ---
-title: "Classify"
-subtitle: "Classification of RNA-Seq samples using circRNA expression"
+title: "Classification of RNA-Seq samples using circRNA expression"
+subtitle: "TMF.  MSc. Bioinformatics and Biostatistics (UOC)" 
 author: "Carmen Gomez Valenzuela"
+date: "June, 2018"
 output: html_document
 ---
 
@@ -9,8 +10,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 Modify base/contrast with the two desired groups from phenodata.txt
+
+```{r, message=FALSE}
+contrast = "coronary"
+base = "normal"
+```
 
 phenodata.txt file must contain two columns separated by tabs
  - the first one with the name of samples
@@ -21,22 +26,19 @@ circ_annotations.rds must contain circRNA read counts with sample names in colum
 ```{r, message=FALSE}
 library(readr)
 
-contrast = "coronary"
-base = "normal"
-
-phenodata <- read_delim("phenodata.txt", "\t", escape_double = FALSE, trim_ws = TRUE)
+phenodata <- read_table2("phenodata.txt")
 table <- readRDS("circ_anotations.rds")
-
 ```
 
 Filtering low expressed circRNAs (less than 10 in 70% of samples or more)
 
 ```{r}
+filter_value <-10
+perc_smaples <- 0.7
 
 counts <- table[,phenodata$File[phenodata$Group %in% c(base,contrast)]]
-counts <- counts[ rowSums(counts >= 10) >= dim(counts)[2]*0.7,]
+counts <- counts[ rowSums(counts >= filter_value) >= dim(counts)[2]*perc_samples,]
 group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
-
 ```
 
 Variance Stabilizing Transformation
@@ -82,7 +84,9 @@ getPartition <- function(group, table, ratio) {
 
 set.seed(12345)
 
-dat <- getPartition(as.factor(group), vst,0.2)
+test_perc = 0.2
+
+dat <- getPartition(as.factor(group), vst, test_perc)
 
 xtrain <- dat$xtrain
 ytrain <- factor(dat$ytrain$condition)
@@ -111,7 +115,7 @@ Set K as the desired value (tip: the lower number that makes data grouping in MD
 
 ```{r}
 
-k=50
+k=10
 selected.circs <- rownames(att.scores)[order(att.scores, decreasing = TRUE)][1:k]
 selected.circs
 
@@ -125,7 +129,7 @@ legend("topleft", legend=c(contrast, base),
        col= c("black","red"), pch=c(1,2), cex=0.8)
 ```
 
-#Support Vector Machine model. 
+###Support Vector Machine model. 
 
 You must tune hyperparams cost and kernel, and set a suitable value for cross-validation folds.
 
@@ -161,7 +165,7 @@ auc(roc_obj.svm)
 plot(roc_obj.svm)
 ```
 
-#Random Forest Model. 
+###Random Forest Model. 
 
 Set a suitable value for cross-validation folds. 
 
@@ -171,7 +175,7 @@ library(caret)
 
 cross_folds = 5
 
-numFolds <- trainControl(method = 'cv', number = cross_folds, search="random")
+numFolds <- trainControl(method = 'cv', number = cross_folds, search="random", classProbs = TRUE, summaryFunction = twoClassSummary)
 tunegrid <- expand.grid(.mtry=seq(1,nrow(xtrain.cut),1))
 
 model_rf <- train(x = t(xtrain.cut), y = as.factor(ytrain), method = "rf",
@@ -198,7 +202,7 @@ auc(roc_obj.rf)
 plot(roc_obj.rf)
 ```
 
-#Neural Network Model: Extreme Learning Machine. 
+###Neural Network Model: Extreme Learning Machine. 
 
 Set a suitable value for cross-falidation folds. 
 Tune hyperparams nhid (number of hidden nodes) and acfun (activation function)
@@ -207,7 +211,7 @@ Tune hyperparams nhid (number of hidden nodes) and acfun (activation function)
 library(caret)
 set.seed(12345)
 
-cross-folds = 5
+cross_folds = 5
 hyper_nhid = c(1000,1500,2000,2500)
 hyper_actfun = c("purelin","sig","sin","radbas","hardlim","hardlims","satlins","tansig","tribas","poslin","purelin")
 
@@ -218,7 +222,7 @@ elm_fun$prob <- function (modelFit, newdata, submodels = NULL)  {
   t(apply(out, 1, function(x) x/sum(x)))
 }
 
-numFolds <- trainControl(method = 'cv', number = cross-folds, search="grid", classProbs = TRUE,
+numFolds <- trainControl(method = 'cv', number = cross_folds, search="grid", classProbs = TRUE,
                                       summaryFunction = twoClassSummary)
 
 tunegrid <- expand.grid(nhid= hyper_nhid, actfun= hyper_actfun)
