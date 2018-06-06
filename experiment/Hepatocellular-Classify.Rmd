@@ -1,8 +1,12 @@
 ---
-title: "Hepatocellular"
-author: "Carmen Gomez Valenzuela"
+title: "Cáncer Hepatocelular. Clasificación con ML"
+subtitle: "TFM: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores [Máster en Bioinformática y Bioestadística (UOC)]"
+author: "Carmen Gómez Valenzuela"
 date: "Junio de 2018"
-output: html_document
+output: 
+  html_document:
+    theme: paper
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -31,14 +35,14 @@ group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
 
 ```
 
-Variance Stabilizing Transformation
+###Variance Stabilizing Transformation
 
 ```{r, message=FALSE}
 library(DESeq2)
 vst <- vst(as.matrix(counts), fitType="parametric")
 ```
 
-Train/Test sets
+Dividimos los datos en train/test
 
 ```{r}
 
@@ -84,7 +88,7 @@ ytest <- factor(dat$ytest$condition)
 
 ```
 
-Selección de predictores
+###Selección de predictores
 
 ```{r, message=FALSE}
 library(randomForest)
@@ -98,6 +102,8 @@ att.scores = as.data.frame(importance(forest.imp, type = 1))
 
 varImpPlot(forest.imp, cex=0.6)
 ```
+
+Conservamos los 95 primeros circRNAs en base a su importancia
 
 ```{r}
 
@@ -116,7 +122,7 @@ legend("topleft", legend=c(contrast, base),
        col= c("black","red"), pch=c(1,2), cex=0.8)
 ```
 
-Support Vector machine
+###Support Vector machine
 
 ```{r, message=FALSE}
 set.seed(12345)
@@ -128,7 +134,7 @@ svm_tune
 plot(svm_tune)
 ```
 
-Prediccion y evaluacion
+Prediccion y evaluacion: obtenemos un AUC=0.9
 
 ```{r, message=FALSE}
 library(caret)
@@ -142,7 +148,7 @@ auc(roc_obj)
 plot(roc_obj)
 ```
 
-Support Vector Machine: radial kernel
+###Support Vector Machine: radial kernel
 
 ```{r, message=FALSE}
 set.seed(12345)
@@ -154,7 +160,7 @@ svm_tune
 plot(svm_tune)
 ```
 
-Prediccion y evaluacion
+Prediccion y evaluacion: de nuevo un AUC=0.9
 
 ```{r}
 library(caret)
@@ -168,7 +174,7 @@ auc(roc_obj)
 plot(roc_obj)
 ```
 
-Random Forest
+###Random Forest
 
 ```{r,message=FALSE}
 set.seed(12345)
@@ -184,7 +190,7 @@ model_rf <- train(x = t(xtrain.cut), y = as.factor(ytrain), method = "rf",
 model_rf
 ```
 
-Prediccion y evaluacion
+Prediccion y evaluacion: en este caso el rendimiento del modelo es peor. AUC=0.6
 
 ```{r, message=FALSE}
 library(caret)
@@ -198,7 +204,7 @@ auc(roc_obj)
 plot(roc_obj)
 ```
 
-Extreme learning Machine
+###Extreme learning Machine
 
 ```{r, message=FALSE}
 library(caret)
@@ -224,7 +230,7 @@ model.nn
 
 ```
 
-Prediccion y evaluacion
+Prediccion y evaluacion: conseguimos un AUC=1 usando todos los circRNAs como predictores
 
 ```{r, message=FALSE}
 pred.nn <- predict(model.nn,t(xtest))
