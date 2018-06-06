@@ -7,11 +7,12 @@
 
 <b>Autora: </b> Carmen Gómez Valenzuela     
 <b>Área: </b> Genómica computacional     
+
 <b>Profesor consultor: </b> Dr. Amadís Pagès Pinós    
 <b>Profesor responsable: </b> Dr. Carles Ventura Royo     
 
 <i>Junio de 2018</i>
-</p>
+
 <hr/>
 
 Los <b>ARN circulares</b> (circRNAs) han sido identificados recientemente como una clase de isoformas de ARN que forman una <b>molécula cerrada de forma covalente</b> y que se expresan de manera estable, generalizada y abundante en tejidos. Existen evidencias de que pueden actuar como <b>esponjas de micro ARNs</b>, y de su implicación en diferentes tipos de <b>cáncer</b>. 
