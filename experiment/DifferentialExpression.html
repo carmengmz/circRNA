@@ -151,15 +151,15 @@ group.panc &lt;- phenodata$Group[phenodata$Group %in% c(&quot;normal&quot;,&quot
 
 #Conjunto de datos Colorectal-Normal
 counts.col &lt;- table[,phenodata$File[phenodata$Group %in% c(&quot;normal&quot;,&quot;colorectal&quot;)]]
-counts.col &lt;- counts.col[rowSums(counts.col) &gt;0,]
+counts.col &lt;- counts.col[rowSums(counts.col &gt;= 10) &gt;= dim(counts.col)[2]*0.7,,]
 group.col &lt;- phenodata$Group[phenodata$Group %in% c(&quot;normal&quot;,&quot;colorectal&quot;)]</code></pre>
 <div id="analisis-de-expresion-diferencial-para-cancer-colorectal" class="section level1">
 <h1>Análisis de expresión diferencial para cáncer colorectal</h1>
 <pre class="r"><code>library(DESeq2)
 dds.col &lt;- DESeqDataSetFromMatrix(countData = counts.col, colData =data.frame(group = as.factor(group.col)), design= ~ group )
 dds.col &lt;- estimateSizeFactors( dds.col )
-idx &lt;- rowSums(counts(dds.col,normalized=TRUE)&gt;=10) &gt;= 10
-dds.col &lt;- dds.col[idx,]
+#idx &lt;- rowSums(counts(dds.col,normalized=TRUE)&gt;=5) &gt;= 0.7*ncol(counts.hep)
+#dds.col &lt;- dds.col[idx,]
 dds.col &lt;- DESeq( dds.col ,minReplicatesForReplace=Inf)
 res.col &lt;- results( dds.col, cooksCutoff=FALSE, independentFiltering=FALSE)</code></pre>
 <p>Resultados para los circRNAs revisados</p>
@@ -167,59 +167,59 @@ res.col &lt;- results( dds.col, cooksCutoff=FALSE, independentFiltering=FALSE)</
 <pre><code>## log2 fold change (MLE): group normal vs colorectal 
 ## Wald test p-value: group normal vs colorectal 
 ## DataFrame with 1 row and 6 columns
-##           baseMean log2FoldChange     lfcSE      stat       pvalue
-##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;    &lt;numeric&gt;
-## circ5155  93.43409      -1.664071 0.3113752 -5.344262 9.078595e-08
-##                  padj
-##             &lt;numeric&gt;
-## circ5155 0.0001413537</code></pre>
+##           baseMean log2FoldChange     lfcSE      stat           pvalue
+##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;        &lt;numeric&gt;
+## circ5155  93.43409      -1.664012 0.3090681 -5.383964 0.00000007286317
+##                   padj
+##              &lt;numeric&gt;
+## circ5155 0.00002899954</code></pre>
 <pre class="r"><code>res.col[&quot;circ4785&quot;,]</code></pre>
 <pre><code>## log2 fold change (MLE): group normal vs colorectal 
 ## Wald test p-value: group normal vs colorectal 
 ## DataFrame with 1 row and 6 columns
-##           baseMean log2FoldChange     lfcSE      stat       pvalue
-##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;    &lt;numeric&gt;
-## circ4785   267.398      -1.332802 0.2021779 -6.592224 4.332873e-11
-##                  padj
-##             &lt;numeric&gt;
-## circ4785 2.023885e-07</code></pre>
+##           baseMean log2FoldChange     lfcSE      stat              pvalue
+##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;           &lt;numeric&gt;
+## circ4785   267.398      -1.332811 0.2015442 -6.612996 0.00000000003766177
+##                      padj
+##                 &lt;numeric&gt;
+## circ4785 0.00000004496816</code></pre>
 <pre class="r"><code>res.col[&quot;circ27&quot;,]</code></pre>
 <pre><code>## log2 fold change (MLE): group normal vs colorectal 
 ## Wald test p-value: group normal vs colorectal 
 ## DataFrame with 1 row and 6 columns
-##         baseMean log2FoldChange     lfcSE      stat       pvalue
-##        &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;    &lt;numeric&gt;
-## circ27  381.7728     -0.8781685 0.1771043 -4.958483 7.104578e-07
+##         baseMean log2FoldChange     lfcSE      stat         pvalue
+##        &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;      &lt;numeric&gt;
+## circ27  381.7728      -0.878167 0.1768327  -4.96609 0.000000683164
 ##                padj
 ##           &lt;numeric&gt;
-## circ27 0.0008296371</code></pre>
+## circ27 0.0002039244</code></pre>
 <pre class="r"><code>res.col[&quot;circ3091&quot;,]</code></pre>
 <pre><code>## log2 fold change (MLE): group normal vs colorectal 
 ## Wald test p-value: group normal vs colorectal 
 ## DataFrame with 1 row and 6 columns
-##           baseMean log2FoldChange     lfcSE      stat       pvalue
-##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;    &lt;numeric&gt;
-## circ3091  137.4239      -1.507557 0.2745259 -5.491491 3.985536e-08
-##                  padj
-##             &lt;numeric&gt;
-## circ3091 9.308218e-05</code></pre>
+##           baseMean log2FoldChange     lfcSE      stat           pvalue
+##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;        &lt;numeric&gt;
+## circ3091  137.4239      -1.507537 0.2730301 -5.521506 0.00000003361071
+##                   padj
+##              &lt;numeric&gt;
+## circ3091 0.00002006559</code></pre>
 <pre class="r"><code>res.col[&quot;circ1870&quot;,]</code></pre>
 <pre><code>## log2 fold change (MLE): group normal vs colorectal 
 ## Wald test p-value: group normal vs colorectal 
 ## DataFrame with 1 row and 6 columns
 ##           baseMean log2FoldChange     lfcSE      stat      pvalue
 ##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;   &lt;numeric&gt;
-## circ1870  19.69448      -1.576646  0.510699 -3.087231 0.002020302
-##               padj
-##          &lt;numeric&gt;
-## circ1870 0.3347187</code></pre>
+## circ1870  19.69448      -1.576533 0.5047161 -3.123603 0.001786515
+##                padj
+##           &lt;numeric&gt;
+## circ1870 0.09566392</code></pre>
 <pre class="r"><code>res.col[&quot;circ1526&quot;,]</code></pre>
 <pre><code>## log2 fold change (MLE): group normal vs colorectal 
 ## Wald test p-value: group normal vs colorectal 
 ## DataFrame with 1 row and 6 columns
 ##           baseMean log2FoldChange     lfcSE      stat    pvalue      padj
 ##          &lt;numeric&gt;      &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt; &lt;numeric&gt;
-## circ1526  260.6624      0.3018961 0.2155523   1.40057 0.1613426 0.9989178</code></pre>
+## circ1526  260.6624      0.3019003 0.2148734  1.405015 0.1600168 0.9098504</code></pre>
 </div>
 <div id="analisis-de-expresion-diferencial-para-cancer-hepatocelular" class="section level1">
 <h1>Análisis de expresión diferencial para cáncer hepatocelular</h1>

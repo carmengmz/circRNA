@@ -11,6 +11,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
 ```
 
 
@@ -39,7 +40,7 @@ group.panc <- phenodata$Group[phenodata$Group %in% c("normal","pancreatic")]
 
 #Conjunto de datos Colorectal-Normal
 counts.col <- table[,phenodata$File[phenodata$Group %in% c("normal","colorectal")]]
-counts.col <- counts.col[rowSums(counts.col) >0,]
+counts.col <- counts.col[rowSums(counts.col >= 10) >= dim(counts.col)[2]*0.7,,]
 group.col <- phenodata$Group[phenodata$Group %in% c("normal","colorectal")]
 ```
 
@@ -49,8 +50,8 @@ group.col <- phenodata$Group[phenodata$Group %in% c("normal","colorectal")]
 library(DESeq2)
 dds.col <- DESeqDataSetFromMatrix(countData = counts.col, colData =data.frame(group = as.factor(group.col)), design= ~ group )
 dds.col <- estimateSizeFactors( dds.col )
-idx <- rowSums(counts(dds.col,normalized=TRUE)>=10) >= 10
-dds.col <- dds.col[idx,]
+#idx <- rowSums(counts(dds.col,normalized=TRUE)>=5) >= 0.7*ncol(counts.hep)
+#dds.col <- dds.col[idx,]
 dds.col <- DESeq( dds.col ,minReplicatesForReplace=Inf)
 res.col <- results( dds.col, cooksCutoff=FALSE, independentFiltering=FALSE)
 
