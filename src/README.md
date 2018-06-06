@@ -232,7 +232,7 @@ As a result we will get the counts table in a file called [circ_annotations.rds]
 
 ### Machine Learning Classification using the normalized circRNA counts table
 
-Classification using Machine Learning has been automated in the R Markdown [Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/src/Classify.Rmd) script. This script can be executed on any operating system that has a graphical environment in which Rstudio can be installed (https://www.rstudio.com/)
+Classification using Machine Learning has been automated in the R Markdown [Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/src/Classify.Rmd) script. This script can be executed on any operating system with a graphical environment in which Rstudio can be installed (https://www.rstudio.com/)
 
 The script needs to be tuned. Here we are going to do so for our classification example, using read counts of circRNAs detected and quantified from peripherical blood exosomes, from patients with Coronary Heart Disease and healthy people.
 
@@ -262,7 +262,7 @@ counts <- counts[ rowSums(counts >= filter_value) >= dim(counts)[2]*perc_samples
 group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
 ```
 
-Now  we will use the stabilizing variance transformation (VST) to eliminate the dependence between the mean and the variance using DESeq2 package. 
+And we will use the stabilizing variance transformation (VST) to eliminate the dependence between the mean and the variance using DESeq2 package. 
 
 ```
 library(DESeq2)
@@ -291,18 +291,17 @@ forest.imp = randomForest(class ~. , data = data.frame(t(xtrain), class = ytrain
 	
 att.scores = as.data.frame(importance(forest.imp, type = 1))
 ```
-The number of predictors (circRNAs) using for classification in our example will be k=5, you must tune this number guided by the MDS graph (tip: the lower number that makes data grouping in MDS): 
+The number of predictors (circRNAs) using for classification in our example will be k=10, you must tune this number guided by the MDS graph (tip: the lower number that makes data grouping in MDS): 
 
 ```
-k=5
+k=10
 selected.circs <- rownames(att.scores)[order(att.scores, decreasing = TRUE)][1:k]
 selected.circs
 
 xtrain.cut = xtrain[selected.circs,]
 ```
-To finish, we will apply the best classification model, among those generated in the training process, on the test set to check whether the training results are extrapolated to a new data set and we will report the AUC as a measure of their performance.
 
-Training a Support Vector Machine we get AUC=1 in train set:
+Training a Support Vector Machine: we get AUC=1 in train set
 
 ```{r}
 library(e1071)
@@ -363,13 +362,12 @@ Prediction coronary normal
        'Positive' Class : coronary   
                                      
 ```
+Same results have been obtained with Random Forest and Extreme machine Learning Classification models. A tuned script with the example can be found in  [Coronary-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/example/Coronary-Classify.Rmd) and the output report can be viewed on-line in [Coronary-Classify.html](https://carmengmz.github.io/circRNA/example/Coronary-Classify.html)
 
 In conclusion, we have been able to discriminate between samples of patients with coronary heart disease and healthy people with 100% accuracy. These same results have been obtained for colorectal and hepatocellular cancer. For pancreatic cancer we get an AUC=0.8333.
 
 This result shows that circRNAs present in exosomes of human peripheral blood are expressed so differently for healthy people and people with various diseases, that allows classification by machine learning with 100% accuracy.
 
-You can find a tuned script for our example in [Coronary-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/example/Coronary-Classify.Rmd) and the output report can be viewed on-line in [Coronary-Classify.html](https://carmengmz.github.io/circRNA/example/Coronary-Classify.html)
-
-Also the reports for hepatocellular, colorectal and pacreatic cancer can be found in the [experiment](https://github.com/carmengmz/circRNA/blob/master/experiment) folder.
+The reports for hepatocellular, colorectal and pacreatic cancer can be found in the [experiment](https://github.com/carmengmz/circRNA/blob/master/experiment) folder and online in: .https://carmengmz.github.io/circRNA/example/
 
 
