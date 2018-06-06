@@ -21,8 +21,6 @@ Los <b>exosomas</b> son pequeñas vesículas derivadas de las células y de orig
 
 En <b>este trabajo</b> se han cuantificado los <b>circRNAs</b> presentes en <b>exosomas de sangre periférica</b> de individuos sanos y con tres tipos de cáncer: colorrectal, hepatocelular y pancreático. Usando la expresión de estos circRNAs se ha conseguido <b>discriminar</b>, con una alta precisión, entre <b>personas sanas y con cáncer</b>, usando técnicas de <b>Machine Learning</b>, reforzando así la <b>hipótesis</b> de que los <b>circRNAs</b> presentes en exosomas de sangre periférica son <b>biomarcadores prometedores</b> que se expresan de <b>forma diferente</b> para distintos tipos de cáncer. 
           
-Adicionalmente se hace una <b>revisión</b> sobre los <b>micro ARNs</b> sobre los que los circRNAs más expresados podrían estar <b>actuando como esponjas</b>, encontrando <b>evidencias</b> de la implicación de la <b>desregulación</b> de estos micro ARNs en los <b>tres tipos de cáncer</b> estudiados.
-
 <hr/>
 
 Contenido del repositorio:              
@@ -40,8 +38,6 @@ Contenido del repositorio:
 <b>Exosomes</b> are small membrane vesicles of endocytic origin secreted by most cell types and they are thought to <b>play important roles</b> in intercellular communications. It has been shown that <b>tumor cells</b> tend to <b>produce more exosomes</b> than healthy cells and that they can be <b>detected</b> in human peripheral blood. Additionally, in <b>RNA sequencing</b>, in whole blood as well as in exosomes, <b>thousands of circRNAs</b> have been consistently <b>detected</b>. 
 
 Here we have <b>quantified the circRNAs</b> present in <b>exosomes of peripheral blood</b> of healthy people and with three types of cancer: colorectal, hepatocellular and pancreatic. Using the <b>expression</b> of these circRNAs, we have been able to <b>discriminate</b>, with high precision, between <b>healthy individuals</b> and patients of each <b>cancer</b> group using <b>Machine Learning techniques</b>, reinforcing the <b>hypothesis</b> that <b>circRNAs</b> present <b>in peripheral blood exosomes</b> are very <b>promising biomarkers</b> since they are expressed differently for different types of cancer. 
-
-Additionally, a <b>review</b> has been made about the <b>micro RNAs</b> on which the most expressed circRNAs could be acting as <b>sponges</b>, finding <b>evidence of the implication</b> of the dysregulation of these micro RNAs in the <b>three types of carcinomas</b>.
 
 <hr/>
 
