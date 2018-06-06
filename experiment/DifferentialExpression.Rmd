@@ -1,6 +1,6 @@
 ---
-title: "TFM: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores"
-subtitle: "Análisis de expresíon diferencial"
+title: "Análisis de expresión diferencial"
+subtitle: "TFM: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores [Máster en Bioinformática y Bioestadística (UOC)]"
 author: "Carmen Gómez Valenzuela"
 date: "Junio de 2018"
 output: 
@@ -44,17 +44,17 @@ counts.col <- counts.col[rowSums(counts.col >= 10) >= dim(counts.col)[2]*0.7,,]
 group.col <- phenodata$Group[phenodata$Group %in% c("normal","colorectal")]
 ```
 
-#Análisis de expresión diferencial para cáncer colorectal
+###Análisis de expresión diferencial para cáncer colorectal
+
+En cáncer colorectal hemos filtrado aquellos circRNAs con un recuento menor a 10 en al menos el 30% de las muestras.
+Desactivamos el filtrado independiente de DESeq2 y la detección de outliers para no excluir ningún circRNA de los considerados relevantes en nuestro estudio.
 
 ```{r, message=FALSE}
 library(DESeq2)
 dds.col <- DESeqDataSetFromMatrix(countData = counts.col, colData =data.frame(group = as.factor(group.col)), design= ~ group )
 dds.col <- estimateSizeFactors( dds.col )
-#idx <- rowSums(counts(dds.col,normalized=TRUE)>=5) >= 0.7*ncol(counts.hep)
-#dds.col <- dds.col[idx,]
 dds.col <- DESeq( dds.col ,minReplicatesForReplace=Inf)
 res.col <- results( dds.col, cooksCutoff=FALSE, independentFiltering=FALSE)
-
 ```
 
 Resultados para los circRNAs revisados
@@ -79,7 +79,10 @@ res.col["circ1870",]
 res.col["circ1526",]
 ```
 
-#Análisis de expresión diferencial para cáncer hepatocelular
+###Análisis de expresión diferencial para cáncer hepatocelular
+
+En cáncer hepatocellular hacemos un filtrado algo mayor, descartando aquellos circRNAs con un recuento de lecturas normalizado menor a 15 en al menos el 30% de las muestras.
+Desactivamos el filtrado independiente de DESeq2 y la detección de outliers para no excluir ningún circRNA de los considerados relevantes en nuestro estudio.
 
 ```{r, message=FALSE}
 dds.hep <- DESeqDataSetFromMatrix(countData = counts.hep, colData =data.frame(group = as.factor(group.hep)), design= ~ group )
@@ -110,7 +113,10 @@ res.hep["circ1130",]
 res.hep["circ1526",]
 ```
 
-#Análisis de expresión diferencial para cáncer pancreático
+###Análisis de expresión diferencial para cáncer pancreático
+
+Volvemos a descartar aquellos circRNAs con un recuento de lecturas normalizado menor a 15 en al menos el 30% de las muestras.
+Desactivamos el filtrado independiente de DESeq2 y la detección de outliers para no excluir ningún circRNA de los considerados relevantes en nuestro estudio.
 
 ```{r, message=FALSE}
 dds.panc <- DESeqDataSetFromMatrix(countData = counts.panc, colData =data.frame(group = as.factor(group.panc)), design= ~ group )
@@ -119,7 +125,6 @@ idx <- rowSums(counts(dds.panc,normalized=TRUE)>=15) >= 0.7*ncol(counts.panc)
 dds.panc <- dds.panc[idx,]
 dds.panc <- DESeq( dds.panc ,minReplicatesForReplace=Inf)
 res.panc <- results( dds.panc, cooksCutoff=FALSE, independentFiltering=FALSE)
-
 ```
 
 Ningún circRNA tiene una expresión diferencial estadísticamente signifcativa
