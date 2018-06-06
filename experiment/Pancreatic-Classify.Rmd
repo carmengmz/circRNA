@@ -1,8 +1,12 @@
 ---
-title: "Pancreatic"
+title: "Cáncer Pancreático. Clasificación con ML"
+subtitle: "TFM: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores [Máster en Bioinformática y Bioestadística (UOC)]"
 author: "Carmen Gómez Valenzuela"
 date: "Junio de 2018"
-output: html_document
+output: 
+  html_document:
+    theme: paper
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -32,7 +36,7 @@ group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
 
 ```
 
-Variance Stabilizing Transformation
+###Variance Stabilizing Transformation
 
 ```{r, message=FALSE}
 library(DESeq2)
@@ -40,8 +44,7 @@ vst <- varianceStabilizingTransformation(as.matrix(counts), fitType="parametric"
 
 ```
 
-Train/Test sets
-
+Dividimos los datos en train/test
 
 ```{r}
 
@@ -87,7 +90,7 @@ ytest <- factor(dat$ytest$condition)
 
 ```
 
-Selección de predictores
+###Selección de predictores
 
 ```{r, message=FALSE}
 
@@ -102,6 +105,8 @@ att.scores = as.data.frame(importance(forest.imp, type = 1))
 
 varImpPlot(forest.imp, cex=0.6)
 ```
+
+Usaremos los 50 primeros circRNAs en base a su importancia
 
 ```{r, message=FALSE}
 
@@ -118,7 +123,7 @@ legend("topleft", legend=c(contrast, base),
        col= c("red","black"), pch=c(2,1), cex=0.8)
 ```
 
-Support Vector Machine
+###Support Vector Machine
 
 ```{r, message=FALSE}
 set.seed(12345)
@@ -130,7 +135,7 @@ svm_tune
 plot(svm_tune)
 ```
 
-Predicción y evaluación.
+Predicción y evaluación: obtenemos un AUC=0.8333
 
 ```{r, message=FALSE}
 library(caret)
@@ -144,7 +149,7 @@ auc(roc_obj)
 plot(roc_obj)
 ```
 
-Random Forest
+###Random Forest
 
 ```{r, message=FALSE}
 set.seed(12345)
@@ -160,7 +165,7 @@ model_rf
 plot(model_rf)
 ```
 
-Prediccion y evaluacion
+Prediccion y evaluacion: no clasifica correctamente ninguna muestra de cáncer pancreático aunque el AUC=1 en entrenamiento (tenemos overfitting)
 
 ```{r, message=FALSE}
 library(caret)
@@ -174,7 +179,7 @@ auc(roc_obj)
 plot(roc_obj)
 ```
 
-Extreme Learning Machine
+###Extreme Learning Machine
 
 ```{r}
 library(caret)
@@ -196,10 +201,10 @@ model.nn <- train(x = t(xtrain), y = as.factor(ytrain), method = elm_fun,
                 trControl = numFolds, tuneGrid=tunegrid, metric="ROC")
 
 plot(model.nn)
-
+model.nn
 ```
 
-Prediccion y evaluacion
+Prediccion y evaluacion: no clasifica correctamente ninguna muestra de cáncer pancreático aunque el AUC=0.73 en entrenamiento (tenemos overfitting)
 
 ```{r}
 plot(model.nn)
