@@ -368,6 +368,6 @@ In conclusion, we have been able to discriminate between samples of patients wit
 
 This result shows that circRNAs present in exosomes of human peripheral blood are expressed so differently for healthy people and people with various diseases, that allows classification by machine learning with 100% accuracy.
 
-The reports for hepatocellular, colorectal and pacreatic cancer can be found in the [experiment](https://github.com/carmengmz/circRNA/blob/master/experiment) folder and online in: .https://carmengmz.github.io/circRNA/example/
+The reports for hepatocellular, colorectal and pacreatic cancer can be found in the [experiment](https://github.com/carmengmz/circRNA/blob/master/experiment) folder and online in: https://carmengmz.github.io/circRNA/experiment/
 
 
