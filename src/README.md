@@ -228,21 +228,148 @@ In a Unix/Linux environment we would do it with the following command:
 ```
 > Rscript Annotate.R
 ```
-As a result we will get the counts table in a file called <b>circ_annotations.rds</b>
+As a result we will get the counts table in a file called [circ_annotations.rds](https://github.com/carmengmz/circRNA/tree/master/example/circ_annotations.rds). The annotations file for our example can be found in the [example](https://github.com/carmengmz/circRNA/tree/master/example) folder.
 
 ### Machine Learning Classification using the normalized circRNA counts table
 
-In first place, we will filter circRNAs whose reading counts are below 10 in absolute value in at least 70% of the samples (you can change these values inside the script), and then we will use the stabilizing variance transformation (VST) to eliminate the dependence between the mean and the variance. 
+Classification using Machine Learning has been automated in the R Markdown [Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/src/Classify.Rmd) script. This script can be executed on any operating system that has a graphical environment in which Rstudio can be installed (https://www.rstudio.com/)
 
-Next, we will generate train and test sets, since the model must be trained in a subset of samples (train) and then validated in a different subset of samples (test).
+The script needs to be tuned. Here we are going to do so for our classification example, using read counts of circRNAs detected and quantified from peripherical blood exosomes, from patients with Coronary Heart Disease and healthy people.
+
+In first place, we will load the read counts from [circ_annotations.rds](https://github.com/carmengmz/circRNA/tree/master/example/circ_annotations.rds) and group info from [phenodata.txt](https://github.com/carmengmz/circRNA/tree/master/example/phenodata.txt)
+
+```
+library(readr)
+phenodata <- read_delim("phenodata.txt", "\t", escape_double = FALSE, trim_ws = TRUE)
+table <- readRDS("circ_anotations.rds")
+```
+
+Then, we will set the base and contrast groups with the same names that can be found in [phenodata.txt](https://github.com/carmengmz/circRNA/tree/master/example/phenodata.txt):
+
+```
+contrast = "coronary"
+base = "normal"
+```
+
+Now, we are going to filter circRNAs whose reading counts are below 10 (in absolute value) in at least 70% of the samples (you can change these values inside the script)
+
+```
+filter_value <-10
+perc_smaples <- 0.7
+
+counts <- table[,phenodata$File[phenodata$Group %in% c(base,contrast)]]
+counts <- counts[ rowSums(counts >= filter_value) >= dim(counts)[2]*perc_samples,]
+group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
+```
+
+Now  we will use the stabilizing variance transformation (VST) to eliminate the dependence between the mean and the variance using DESeq2 package. 
+
+```
+library(DESeq2)
+vst <- vst(as.matrix(counts), fitType="parametric")
+```
+
+Next, we will generate train and test sets, since the model must be trained in a subset of samples (train) and then validated in a different subset of samples (test), with 20% of samples in test set (you can change this value)
+
+```
+test_perc <- 0.2
+dat <- getPartition(as.factor(group), vst, test_perc)
+
+xtrain <- dat$xtrain
+ytrain <- factor(dat$ytrain$condition)
+
+xtest <- dat$xtest
+ytest <- factor(dat$ytest$condition)
+```
 
 We will continue selecting, with a Random Forest algorithm, in the training set, the circRNAs considered most important. Whith these circRNAs we will train three different classification models: Support Vector Machines, Random Forests and Extreme Learning Neural Networks. 
 
+```
+library(randomForest)
+forest.imp = randomForest(class ~. , data = data.frame(t(xtrain), class = ytrain), 
+		ntree = 1000, keep.forest = FALSE, importance = TRUE)
+	
+att.scores = as.data.frame(importance(forest.imp, type = 1))
+```
+The number of predictors (circRNAs) using for classification in our example will be k=5, you must tune this number guided by the MDS graph (tip: the lower number that makes data grouping in MDS): 
+
+```
+k=5
+selected.circs <- rownames(att.scores)[order(att.scores, decreasing = TRUE)][1:k]
+selected.circs
+
+xtrain.cut = xtrain[selected.circs,]
+```
 To finish, we will apply the best classification model, among those generated in the training process, on the test set to check whether the training results are extrapolated to a new data set and we will report the AUC as a measure of their performance.
 
-The implementation has been done in R and has been automated in the R Markdown [Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/src/Classify.Rmd) script. This script can be executed on any operating system that has a graphical environment in which Rstudio can be installed (https://www.rstudio.com/)
+Training a Support Vector Machine we get AUC=1 in train set:
 
-You must tune hyperparams and set up a suitable value for some vars (as cross-validation folds). In the code there are indications to do that and you can find a tuned script for our example in [Coronary-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/example/Coronary-Classify.Rmd) and the output report [Coronary-Classify.html](https://carmengmz.github.io/circRNA/example/Coronary-Classify.html)
+```{r}
+library(e1071)
 
+hyper_cost = 2^(0:9)
+hyper_kernel = "linear"
+cross_folds = 5
+
+svm_tune <- tune.svm(class ~ ., data=data.frame(class=ytrain, t(xtrain.cut)),  
+                          cost = hyper_cost, tunecontrol=tune.control(cross=cross_folds))
+svm_tune
+plot(svm_tune)
+------------------------
+
+Parameter tuning of ‘svm’:
+
+- sampling method: 5-fold cross validation 
+
+- best parameters:
+ cost
+    1
+
+- best performance: 0 
+```
+
+And also AUC=1 in test set:
+
+```
+library(caret)
+pred.svm <- predict(svm_tune$best.model,t(xtest))
+confusionMatrix(pred.svm, ytest)
+------------------------
+
+Confusion Matrix and Statistics
+
+          Reference
+Prediction coronary normal
+  coronary        2      0
+  normal          0      2
+                                     
+               Accuracy : 1          
+                 95% CI : (0.3976, 1)
+    No Information Rate : 0.5        
+    P-Value [Acc > NIR] : 0.0625     
+                                     
+                  Kappa : 1          
+ Mcnemar's Test P-Value : NA         
+                                     
+            Sensitivity : 1.0        
+            Specificity : 1.0        
+         Pos Pred Value : 1.0        
+         Neg Pred Value : 1.0        
+             Prevalence : 0.5        
+         Detection Rate : 0.5        
+   Detection Prevalence : 0.5        
+      Balanced Accuracy : 1.0        
+                                     
+       'Positive' Class : coronary   
+                                     
+```
+
+In conclusion, we have been able to discriminate between samples of patients with coronary heart disease and healthy people with 100% accuracy. These same results have been obtained for colorectal and hepatocellular cancer. For pancreatic cancer we get an AUC=0.8333.
+
+This result shows that circRNAs present in exosomes of human peripheral blood are expressed so differently for healthy people and people with various diseases, that allows classification by machine learning with 100% accuracy.
+
+You can find a tuned script for our example in [Coronary-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/example/Coronary-Classify.Rmd) and the output report can be viewed on-line in [Coronary-Classify.html](https://carmengmz.github.io/circRNA/example/Coronary-Classify.html)
+
+Also the reports for hepatocellular, colorectal and pacreatic cancer can be found in the [experiment](https://github.com/carmengmz/circRNA/blob/master/experiment) folder.
 
 
