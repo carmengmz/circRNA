@@ -1,9 +1,12 @@
 ---
-title: "Colorectal Cancer"
-subtitle: "Classification of RNA-Seq samples using circRNA expression"
-author: "Carmen Gomez Valenzuela"
+title: "Cáncer Colorectal. Clasificación con ML"
+subtitle: "TFM: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores [Máster en Bioinformática y Bioestadística (UOC)]"
+author: "Carmen Gómez Valenzuela"
 date: "Junio de 2018"
-output: html_document
+output: 
+  html_document:
+    theme: paper
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -32,7 +35,7 @@ group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
 
 ```
 
-Variance Stabilizing Transformation
+###Variance Stabilizing Transformation
 
 ```{r, message=FALSE}
 library(DESeq2)
@@ -85,7 +88,7 @@ ytest <- factor(dat$ytest$condition)
 
 ```
 
-Feature selection
+###Feature selection
 
 ```{r, message=FALSE}
 library(randomForest)
@@ -99,6 +102,8 @@ att.scores = as.data.frame(importance(forest.imp, type = 1))
 
 varImpPlot(forest.imp, cex=0.6)
 ```
+
+Conservamos los ocho primeros circRNAs en base a su importancia
 
 ```{r}
 
@@ -116,7 +121,7 @@ legend("topleft", legend=c(contrast, base),
        col= c("black","red"), pch=c(1,2), cex=0.8)
 ```
 
-Clasificación: Support Vector machines
+###Clasificación: Support Vector machines
 
 ```{r}
 set.seed(12345)
@@ -128,7 +133,7 @@ svm_tune
 plot(svm_tune)
 ```
 
-Predicción y evaluación.
+Predicción y evaluación: obtenemos una precisión del 100% para el modelo
 
 ```{r, message=FALSE}
 library(caret)
@@ -136,7 +141,7 @@ pred.svm <- predict(svm_tune$best.model,t(xtest))
 confusionMatrix(pred.svm, ytest)
 ```
 
-Clasificación: Random Forest
+###Clasificación: Random Forest
 
 ```{r,  message=FALSE}
 set.seed(12345)
@@ -152,7 +157,7 @@ model_rf
 plot(model_rf)
 ```
 
-Predicción y evaluación.
+Predicción y evaluación: de nuevo obtenemos una precisión del 100% para el modelo
 
 ```{r}
 library(caret)
@@ -161,7 +166,7 @@ confusionMatrix(pred.rf, ytest)
 ```
 
 
-Clasficación: Neural Networks
+###Clasficación: Neural Networks
 
 ```{r}
 library(caret)
@@ -186,7 +191,7 @@ plot(model.nn)
 
 ```
 
-Predicción y evaluación.
+Predicción y evaluación: la precisión del modelo es también del 100%
 
 ```{r}
 pred.nn <- predict(model.nn,t(xtest))
