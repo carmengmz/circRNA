@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/131415787.svg)](https://zenodo.org/badge/latestdoi/131415787)
+
 <center>
 <h2>Trabajo Fin de Máster: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores</h2>
 <h3>Máster en Bioinformática y Bioestadística. UOC (Universitat Oberta de Catalunya)</h3>
