@@ -1,4 +1,6 @@
 
+[![DOI](https://zenodo.org/badge/131415787.svg)](https://zenodo.org/badge/latestdoi/131415787)
+
 <h1>Repositorio de resultados intermedios</h1>
 
 <h3>Trabajo Fin de Máster: Machine Learning para caracterizar ARNs circulares en exosomas de sangre periférica como biomarcadores</h3>
