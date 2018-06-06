@@ -27,7 +27,7 @@ Contenidos:
           
 - Cáncer hepatocelular: clasificación usando Machine Learning. Implementación: [Hepatocellular-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/Hepatocellular-Classify.Rmd). El informe de salida en html puede ser consultado online en [Hepatocellular-Classify.html](https://carmengmz.github.io/circRNA/experiment/Hepatocellular-Classify.html)         
           
-- Cáncer pancreático: clasificación usando Machine Learning. Implementación: [Pancreatic-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/Pancreatic-Classify.Rmd). El informe de salida en html puede ser consultado online en[Pancreatic-Classify.html](https://carmengmz.github.io/circRNA/experiment/Colorectal-Classify.html)         
+- Cáncer pancreático: clasificación usando Machine Learning. Implementación: [Pancreatic-Classify.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/Pancreatic-Classify.Rmd). El informe de salida en html puede ser consultado online e n[Pancreatic-Classify.html](https://carmengmz.github.io/circRNA/experiment/Pancreatic-Classify.html)         
           
 - Análisis de expresión diferencial. Implementación: [DifferentialExpression.Rmd](https://github.com/carmengmz/circRNA/blob/master/experiment/DifferentialExpression.Rmd). El informe de salida en html puede ser consultado online en [DifferentialExpression.html](https://carmengmz.github.io/circRNA/experiment/DifferentialExpression.html)      
       
