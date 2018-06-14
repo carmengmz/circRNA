@@ -120,7 +120,7 @@ SRR5679905_clean_2.fastq    SRR5712482_clean_2.fastq    SRR5712487_clean_2.fastq
 The generated reports are available in the [example](https://github.com/carmengmz/circRNA/tree/master/example) folder.
 
 ### Detection of circRNA
-In recent years, multiple tools and pipelines have been developed for the identification of circRNAs. In parallel we can find published studies comparing the different detection tools. In [Circular RNA tools](http://github.com/carmengmz/circRNA/wiki/) you can find references to published studies that compare the different circRNA detection tools.
+In recent years, multiple tools and pipelines have been developed for the identification of circRNAs. In parallel we can find published studies comparing the different detection tools. 
 
 In this project we will use the CIRI2 tool to identify the circRNAs present in our samples. To do that, we first need to align the readings to a reference genome using the BWA aligner. BWA is a tool for mapping divergent sequences against a large reference genome, such as the human genome. In order to perform this task you will need to download the reference genome in FASTA format and its annotations in GTF format. We will use the latest available version of the reference genome GRCh38. If you need to use other reference genome, you can edit the <b>reference</b> variable in [CircRNA.R](https://github.com/carmengmz/circRNA/blob/master/src/CircRNA.R) script. 
 
