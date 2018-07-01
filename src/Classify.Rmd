@@ -34,7 +34,7 @@ Filtering low expressed circRNAs (less than 10 in 70% of samples or more)
 
 ```{r}
 filter_value <-10
-perc_smaples <- 0.7
+perc_samples <- 0.7
 
 counts <- table[,phenodata$File[phenodata$Group %in% c(base,contrast)]]
 counts <- counts[ rowSums(counts >= filter_value) >= dim(counts)[2]*perc_samples,]
