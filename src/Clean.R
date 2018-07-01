@@ -82,7 +82,7 @@ for(f in phenodata$File) {
                 sep="")
   }
   #Else: paired-end reads
-  {
+  else {
     cmd = paste("fastp -c -i ",f,"_1.fastq"," -I ",f,"_2.fastq",
               " -o ", f, "_clean_1.fastq"," -O ",f,"_clean_2.fastq",
               " -j ", f, "_clean.fastp.json ",
