@@ -42,6 +42,8 @@ group <- phenodata$Group[phenodata$Group %in% c(base,contrast)]
 ```
 
 Variance Stabilizing Transformation
+source("https://bioconductor.org/biocLite.R")
+biocLite("DESeq2")
 
 ```{r}
 library(DESeq2)
